@@ -1,0 +1,20 @@
+.contenedor-usuario{
+	background: white;
+}
+
+.tabla-usuarios{
+	padding: 15px;
+}
+
+/**{
+
+	font-size: 100px !important;
+}*/
+
+.btn-modal-inspeccion{
+	margin-top: 10px;
+}
+
+.content-wrapper{
+	overflow-y: scroll;
+}
