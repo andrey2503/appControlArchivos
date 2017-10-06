@@ -5,12 +5,12 @@
 <div class="container row col-md-12 contenedor-usuario">
 
 
-<button type="button" class="btn btn-info btn-modal-inspeccion" data-toggle="modal" data-target="#modalNotificacion">Crear carpeta</button>
+<button style="margin: 15px;" type="button" class="btn btn-warning btn-modal-inspeccion pull-right" data-toggle="modal" data-target="#modalNotificacion"><span class="glyphicon glyphicon-plus"></span> Crear carpeta</button>
 
 
 
 <div>
-	<h4>Lista de notificaciones para expediente {{ $expediente->finca }}</h4>
+	<h4> <span class="glyphicon glyphicon-folder-open"></span> {{ $expediente->finca }}</h4>
 	<table class="table table-striped table-bordered" id="tabla-carpetas">
 		<thead>
 			<th>Carpeta</th>
@@ -34,9 +34,7 @@
 
 </div>
 
-<div class="container row col-md-12">
-	<h1>titulo</h1>
-</div>
+
 
 
 
@@ -58,9 +56,11 @@
         
         	<form id="form_nuevaInspeccion" role="form"   method="post"  action="{{ url('jefat/crearSubcarpeta') }}" class="form-horizontal form_entrada" >        
         		{{ csrf_field() }}
+        		<input type="hidden" name="expediente" value="{{ $expediente->finca }}">
+        		<input type="hidden" name="expediente" value="{{ $expediente->finca }}">
 			  <div class="form-group">
 			    <label for="direccion">Carpeta</label>
-			    <input type="text" class="form-control" id="lugarInspeccion" name="carpeta" placeholder="Carpeta" required>
+			    <input type="text" class="form-control" id="carpeta" name="carpeta" placeholder="Carpeta" required>
 			  </div>
 			 
 				<button onclick="crearSubcarpeta()" type="button" class="btn btn-default btn-success">Crear carpeta</button>
@@ -95,7 +95,7 @@
 
 		$('#tabla-carpetas tr:last').after('<tr>'+
 			'<td>'+result.carpeta+'</td>'+
-			'<td><a href=" {{ url("jefat/verArchivos")}}/'+result.id+'" type="button" class="btn btn-info btn-xs btn-modal-inspeccion"> <span class="glyphicon glyphicon-eye-open"></span> Entrar</a></td>'+
+			'<td><a href=" {{ url("jefat/verArchivos")}}/'+result.id+'/'+ result.expediente+  '" type="button" class="btn btn-info btn-xs btn-modal-inspeccion"> <span class="glyphicon glyphicon-eye-open"></span> Entrar</a></td>'+
 			'</tr>');
 
 	}).fail(function(e){

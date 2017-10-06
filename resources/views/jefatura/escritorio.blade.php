@@ -334,6 +334,15 @@
               </a>
             </li>
 
+            <li>
+              <a href="{{ URL::asset('jefat/administrarDistritos') }}">
+                <i class="fa fa-th"></i> <span>Administrar distritos </span>
+                 <small class="label pull-right bg-green">
+                   <span class="glyphicon glyphicon-list-alt"></span>
+                 </small>
+              </a>
+            </li>
+
 
             <li>
               <a href="{{ URL::asset('/out') }}">

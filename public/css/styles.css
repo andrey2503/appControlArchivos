@@ -18,3 +18,7 @@
 .content-wrapper{
 	overflow-y: scroll;
 }
+
+.login-page{
+	background: white !important;
+}

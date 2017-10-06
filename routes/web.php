@@ -55,6 +55,9 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/expedientes/{id}','Jefaturas@listaExpedientes');
     Route::get('/verArchivos/{id}/{expediente}','Jefaturas@verArchivos');
     Route::post('/subirArchivo','Jefaturas@subirArchivo');
+    Route::post('/tipoDocumento','Jefaturas@tipoDocumento');
+    Route::get('/administrarDistritos','Jefaturas@administrarDistritos');
+    Route::post('/administrarDistritos','Jefaturas@asignarDistritos');
 
     });
 
@@ -68,3 +71,4 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     // Route::get('/home','Inspectores@index');
     Route::get('/','Inspectores@index');
     });
+
