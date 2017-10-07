@@ -7,16 +7,16 @@ use Illuminate\Contracts\Auth\Guard;
 use Session;
 use Illuminate\Support\Facades\Auth;
 
-class Jefatura
+class Publico
 {
-    /**
+     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
      */
-      protected $auth;
+     protected $auth;
      public function __contructor(Guard $auth){
         $this->auth = $auth;
      }// constructor
@@ -34,7 +34,7 @@ class Jefatura
 
         case '2':
               # code...
-             // return redirect('jefat');
+             return redirect('jefat');
             break;
 
         case '3':
@@ -42,16 +42,15 @@ class Jefatura
          return redirect('inspec');
                 
         break;
+
         case '4':
                 # code...
-        return redirect('public');
-        
+         // return redirect('public');
+                
+        break;
         case '5':
                 # code...
         return redirect('contra');
-        
-
-        break;
           default:
             # code...
             return redirect('login');

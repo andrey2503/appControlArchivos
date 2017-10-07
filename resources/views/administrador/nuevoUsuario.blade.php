@@ -44,6 +44,8 @@
 
 
               <select name="idrol"class="form-control">
+                  <option value="5">Contraloria</option>
+                  <option value="4">Publico</option>
                   <option value="3">Inspector</option>
                   <option value="2">Jefatura</option>
                   <option value="1">Administrador</option>

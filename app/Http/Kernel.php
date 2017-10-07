@@ -61,6 +61,7 @@ class Kernel extends HttpKernel
         
         'administrador' =>Middleware\Administrador::class,
         'jefatura' =>Middleware\Jefatura::class,
-         'inspector' =>Middleware\Inspectores::class,
+        'inspector' =>Middleware\Inspectores::class,
+        'publico' =>Middleware\Publico::class,
     ];
 }

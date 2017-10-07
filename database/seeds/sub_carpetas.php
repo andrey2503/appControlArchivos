@@ -24,15 +24,15 @@ class sub_carpetas extends Seeder
     		$sub_carpetas->save();
     	}// fin de foreach 
 
-        $tipo_documento=array('Notificaciones',
-                    'Clausura'
-                         );
-        foreach ($tipo_documento as  $t) {
-            # code...
-            $tipo = new tipo_documento();
-            $tipo->tipo =  $t;
-            $tipo->save();
-        }// fin de foreach 
+        // $tipo_documento=array('Notificaciones',
+        //             'Clausura'
+        //                  );
+        // foreach ($tipo_documento as  $t) {
+        //     # code...
+        //     $tipo = new tipo_documento();
+        //     $tipo->tipo =  $t;
+        //     $tipo->save();
+        // }// fin de foreach 
         
 
     }

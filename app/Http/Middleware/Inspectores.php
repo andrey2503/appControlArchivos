@@ -32,16 +32,24 @@ class Inspectores
           return redirect('admin');
           break;
 
-      case '2':
+        case '2':
       
-      return redirect('jefat');
-          break;
+           return redirect('jefat');
+        break;
 
-      case '3':
+        case '3':
               # code...
              // return redirect('inspec');
-          break;
+        break;
 
+        case '4':
+                # code...
+         return redirect('public');
+                
+        break;
+        case '5':
+                # code...
+        return redirect('contra');
         default:
           # code...
           return redirect('login');

@@ -30,6 +30,10 @@
                         <td>Jefatura</td>
                         @elseif($u->idrol==3)
                         <td>Inspector</td>
+                        @elseif($u->idrol==4)
+                        <td>Publico</td>
+                        @elseif($u->idrol==5)
+                        <td>Contraloria</td>
                         @endif
 
 

@@ -43,6 +43,14 @@ class Administrador
                return redirect('inspec');
             break;
 
+         case '4':
+                # code...
+         return redirect('public');
+         case '5':
+                # code...
+         return redirect('contra');
+         break;
+
           default:
             # code...
             return redirect('login');

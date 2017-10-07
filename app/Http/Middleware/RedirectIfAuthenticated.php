@@ -38,6 +38,11 @@ class RedirectIfAuthenticated
                return redirect('inspec');
             break;
 
+        case '4':
+                # code...
+               return redirect('public');
+            break;
+
           default:
             # code...
             return redirect('login');

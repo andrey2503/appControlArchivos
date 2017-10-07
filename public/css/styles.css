@@ -20,5 +20,7 @@
 }
 
 .login-page{
-	background: white !important;
+	background-image: url(http://www.1800digitalmedia.com.au/wp-content/uploads/2014/08/sunset-blurred-background-freebie.jpg);
+	background-size: cover; 
+	/*background: white !important;*/
 }

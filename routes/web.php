@@ -70,5 +70,11 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
   Route::group(['middleware' => ['auth','inspector'],'prefix'=>'inspec'], function () {
     // Route::get('/home','Inspectores@index');
     Route::get('/','Inspectores@index');
+    }); 
+
+     //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
+  Route::group(['middleware' => ['auth','publico'],'prefix'=>'public'], function () {
+    // Route::get('/home','Inspectores@index');
+    Route::get('/','Publico@index');
     });
 
