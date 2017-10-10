@@ -37,7 +37,6 @@
                         @endif
 
 
-
                         @if($u->state==1)
                         <td>activo</td>
                         @else

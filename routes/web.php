@@ -47,10 +47,10 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
   Route::group(['middleware' => ['auth','jefatura'],'prefix'=>'jefat'], function () {
     // Route::get('/home','Jefaturas@index');
     Route::get('/','Jefaturas@listaDistritos');
-    Route::get('/nuevoExpediente','Jefaturas@crearExpediente');
+    Route::get('/nuevoExpediente','Jefaturas@vistaCrearExpediente');
     Route::post('/nuevoExpediente','Jefaturas@nuevoExpediente');
     Route::get('/listaExpedientes','Jefaturas@expedientes');
-    Route::get('/verExpediente/{id}','Jefaturas@show');
+    Route::get('/verExpediente/{id}','Jefaturas@detalleExpediente');
     Route::post('/crearSubcarpeta','Jefaturas@crearSubcarpeta');
     Route::get('/expedientes/{id}','Jefaturas@listaExpedientes');
     Route::get('/verArchivos/{id}/{expediente}','Jefaturas@verArchivos');
@@ -69,7 +69,16 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
   //rutas accessibles solo si el usuario inspector de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','inspector'],'prefix'=>'inspec'], function () {
     // Route::get('/home','Inspectores@index');
-    Route::get('/','Inspectores@index');
+    // Route::get('/','Inspectores@index');
+    Route::get('/','Inspectores@listaDistritos');
+    Route::get('/expedientes/{id}','Inspectores@listaExpedientes');
+    Route::get('/verExpediente/{id}','Inspectores@detalleExpediente');
+    Route::get('/verArchivos/{id}/{expediente}','Inspectores@verArchivos');
+    Route::post('/subirArchivo','Inspectores@subirArchivo');
+    Route::post('/tipoDocumento','Inspectores@tipoDocumento');
+    Route::get('/nuevoExpediente','Inspectores@vistaCrearExpediente');
+    Route::post('/nuevoExpediente','Inspectores@nuevoExpediente');
+    Route::get('/listaExpedientes','Inspectores@expedientes');
     }); 
 
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema

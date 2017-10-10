@@ -317,7 +317,7 @@
             </li>
             
              <li>
-              <a href="{{ URL::asset('jefat/nuevoExpediente') }}">
+              <a href="{{ URL::asset('inspec/nuevoExpediente') }}">
                 <i class="fa fa-th"></i> <span>Nuevo Expediente</span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-plus"></span>
@@ -326,7 +326,7 @@
             </li>
 
              <li>
-              <a href="{{ URL::asset('jefat/listaExpedientes') }}">
+              <a href="{{ URL::asset('inspec/listaExpedientes') }}">
                 <i class="fa fa-th"></i> <span>Expedientes </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-plus"></span>

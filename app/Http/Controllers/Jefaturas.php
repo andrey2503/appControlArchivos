@@ -26,7 +26,7 @@ class Jefaturas extends Controller
         return view('jefatura.nuevoExpediente');
     }
 
-    public function crearExpediente(){
+    public function vistaCrearExpediente(){
         $distritos= Distrito::all();
         return view('jefatura.nuevoExpediente')->with(['distritos'=>$distritos]);
     }
@@ -36,17 +36,12 @@ class Jefaturas extends Controller
         return view('jefatura.distritos')->with(['distritos'=>$distritos]);
     }// fin de listaDIstritos
      
-    public function create()
-    {
-        //
-    }
-
     public function expedientes()
     {
         $expedientes= Expediente::all();
         return view('jefatura.listaExpedientes')->with(['expedientes'=>$expedientes]);
 
-    }// listaExpedientes
+    }// Expedientes
 
     public function listaExpedientes($id)
     {
@@ -54,11 +49,6 @@ class Jefaturas extends Controller
         return view('jefatura.listaExpedientes')->with(['expedientes'=>$expedientes]);
 
     }// listaExpedientes
-
-    public function store(Request $request)
-    {
-        //
-    }
 
     public function nuevoExpediente(Request $request)
     {
@@ -79,7 +69,7 @@ class Jefaturas extends Controller
         }
     }// fin de nuevoExpediente
 
-    public function show($id)
+    public function detalleExpediente($id)
     {
         //
         $subcarpetas= SubExpediente::all();
@@ -87,7 +77,7 @@ class Jefaturas extends Controller
         return view('jefatura.detalleExpediente')
                 ->with(['expediente'=>$expediente,
             'subcarpetas'=>$subcarpetas]);
-    }// fin de show
+    }// fin de detalleExpediente
 
     public function crearSubcarpeta(Request $request){
             
@@ -111,21 +101,6 @@ class Jefaturas extends Controller
         
     }//fin de crearSubcarpeta
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
-
     public function verArchivos($id,$expediente){
         $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
         $editar=false;
@@ -143,7 +118,6 @@ class Jefaturas extends Controller
                         'archivos'=>$archivos,
                         'permiso'=>$editar]);
     }// fin de verArchivos
-
 
     public function subirArchivo(Request $request){
         $this->validate($request,[

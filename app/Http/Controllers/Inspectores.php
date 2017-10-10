@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Notificacion;
-
+use App\Distrito;
+use App\Expediente;
+use App\SubExpediente;
+use App\archivos_expediente;
+use App\Distribucion_distritos;
+use App\tipo_documento;
+use Storage;
 class Inspectores extends Controller
 {
     /**
@@ -19,69 +25,122 @@ class Inspectores extends Controller
       return view('inspector.index')->with(['notificaciones'=>$notificaciones]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function listaDistritos(){
+        $distritos= Distrito::all();
+        return view('inspector.distritos')->with(['distritos'=>$distritos]);
+    }// fin de listaDIstritos
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function listaExpedientes($id)
     {
-        //
-    }
+        $expedientes=Expediente::all()->where('distrito_id', '=', $id)->all();
+        return view('inspector.listaExpedientes')->with(['expedientes'=>$expedientes]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    }// listaExpedientes
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function detalleExpediente($id)
     {
         //
-    }
+        $subcarpetas= SubExpediente::all();
+        $expediente=Expediente::where('finca', '=', $id)->first();
+        return view('inspector.detalleExpediente')
+                ->with(['expediente'=>$expediente,
+            'subcarpetas'=>$subcarpetas]);
+    }// fin de detalleExpediente
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function verArchivos($id,$expediente){
+        $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
+        $editar=false;
+        $expedienteID=Expediente::where('finca', '=', $expediente)->first();
+        $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
+        if($permisos!=null){
+            $editar=true;
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+        $tipo_documento= tipo_documento::all();
+        return view('inspector.listadoArchivosSubCarpeta')
+                    ->with(['tipo_documento'=>$tipo_documento,
+                        'carpeta'=>$id,
+                        'expediente'=>$expediente,
+                        'archivos'=>$archivos,
+                        'permiso'=>$editar]);
+    }// fin de verArchivos
+
+     public function subirArchivo(Request $request){
+        $this->validate($request,[
+            'archivo'=>'required|mimes:jpeg,bmp,png,pdf',
+            'tipo'=>'required',
+            'id'=>'required',
+            'expediente'=>'required'
+            ]);
+        // dd($request);
+        // $request->file('archivo')->store('public');
+        $archivo= $request->file('archivo');
+        $ruta_archivo= time().'_'.$archivo->getClientOriginalName();
+
+        $archivo_expediente = new archivos_expediente();
+        $archivo_expediente->carpeta_id = $request->id;
+        $archivo_expediente->idFinca= $request->expediente;
+        $archivo_expediente->ruta_archivo=$ruta_archivo;
+        $archivo_expediente->tipo_id= $request->tipo;
+        
+        Storage::disk('public')->put($ruta_archivo,
+            file_get_contents($archivo->getRealPath()));
+        // dd($archivo_expediente);
+        $archivo_expediente->save();
+        return back();
+    }// fin de subir archivo
+
+     public function tipoDocumento(Request $request){
+
+        $this->validate($request,[
+            'id'=>'required',
+            'tipo'=>'required',
+            ]);
+
+        $nuevo_tipo= new tipo_documento();
+        $nuevo_tipo->tipo=$request->tipo;
+        $nuevo_tipo->carpeta_id= $request->id;
+        if($nuevo_tipo->save()){
+            if($request->ajax()){
+                    $lastId =  tipo_documento::orderBy('created_at', 'desc')->first();
+                    return response()->json([
+                    'id'=>$lastId->id,
+                    'tipo'=> $request->tipo,
+                    ]);
+            }else{
+                return "Error de respuesta";
+            }//
+        }
+    }// fin de public function tipoDocumento(Request $request)
+
+    public function vistaCrearExpediente(){
+        $distritos= Distrito::all();
+        return view('inspector.nuevoExpediente')->with(['distritos'=>$distritos]);
+    }//fin de vistaCrearExpediente
+
+    public function nuevoExpediente(Request $request)
     {
-        //
-    }
-}
+        $this->validate($request,[
+            'expediente'=>'required',
+            'distrito'=>'required',]);
+        
+        $expediente = new Expediente();
+        $expediente->finca = $request->expediente;
+        $expediente->estado=1;
+        $expediente->distrito_id=$request->distrito;
+        $idUsuario=\Auth::user()->id;
+        $expediente->user_id=$idUsuario;
+        if($expediente->save()){
+            return redirect('/');
+        }else{
+             return redirect('/');
+        }
+    }// fin de nuevoExpediente
+
+     public function expedientes()
+    {
+        $expedientes= Expediente::all();
+        return view('inspector.listaExpedientes')->with(['expedientes'=>$expedientes]);
+
+    }// Expedientes
+}// fin de la clase
