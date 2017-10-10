@@ -84,6 +84,12 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','publico'],'prefix'=>'public'], function () {
     // Route::get('/home','Inspectores@index');
-    Route::get('/','Publico@index');
+    Route::get('/','Publico@listaDistritos');
+    Route::get('/expedientes/{id}','Publico@listaExpedientes');
+    Route::get('/listaExpedientes','Publico@expedientes');
+    Route::get('/verExpediente/{id}','Publico@detalleExpediente');
+    Route::get('/verArchivos/{id}/{expediente}','Publico@verArchivos');
     });
 
+
+    
