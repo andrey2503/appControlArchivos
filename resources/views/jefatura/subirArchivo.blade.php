@@ -85,11 +85,7 @@
     setTimeout( function() {
         $("#mensajeTipoDiv").fadeOut();
        }, 3000);
-    // $('#tabla-carpetas tr:last').after('<tr>'+
-    //   '<td>'+result.carpeta+'</td>'+
-    //   '<td><a href=" {{ url("jefat/verArchivos")}}/'+result.id+'/'+ result.expediente+  '" type="button" class="btn btn-info btn-xs btn-modal-inspeccion"> <span class="glyphicon glyphicon-eye-open"></span> Entrar</a></td>'+
-    //   '</tr>');
-
+ 
   }).fail(function(e){
     console.log(e);
     alert(e);

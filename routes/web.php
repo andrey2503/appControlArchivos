@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::post('/tipoDocumento','Jefaturas@tipoDocumento');
     Route::get('/administrarDistritos','Jefaturas@administrarDistritos');
     Route::post('/administrarDistritos','Jefaturas@asignarDistritos');
+    Route::get('/buscar','Jefaturas@buscar');
+    Route::post('/buscar','Jefaturas@buscarFiltrado');
 
     });
 

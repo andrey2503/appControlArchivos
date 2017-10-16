@@ -199,4 +199,25 @@ class Jefaturas extends Controller
         
     }// fin de listaDIstritos
 
+    public function buscar(){
+        $subcarpetas= SubExpediente::all();
+        return view('jefatura.buscar')->with(['subcarpetas'=>$subcarpetas]);
+    }// fin de buscar
+
+     public function buscarFiltrado(Request $request){
+        // $archivosLista=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->toArray();
+        $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
+        // $archivos=archivos_expediente::all()->toArray();
+        return json_encode($archivos);
+        // if($request->ajax()){
+        //             return response()->json([
+        //             'archivo'=>$archivos,
+        //             'cuenta'=> count($archivos)
+        //             ]);
+        //     }else{
+        //         return "Error de respuesta";
+        //     }//
+
+    }// fin
+
 }

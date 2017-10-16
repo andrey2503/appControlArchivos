@@ -316,6 +316,15 @@
               </a>
             </li>
             
+            <li>
+              <a href="{{ URL::asset('jefat/buscar') }}">
+                <i class="fa fa-th"></i> <span>Buscar</span>
+                 <small class="label pull-right bg-blue">
+                   <span class="glyphicon glyphicon-search"></span>
+                 </small>
+              </a>
+            </li>
+
              <li>
               <a href="{{ URL::asset('jefat/nuevoExpediente') }}">
                 <i class="fa fa-th"></i> <span>Nuevo Expediente</span>
