@@ -83,6 +83,8 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/nuevoExpediente','Inspectores@vistaCrearExpediente');
     Route::post('/nuevoExpediente','Inspectores@nuevoExpediente');
     Route::get('/listaExpedientes','Inspectores@expedientes');
+    Route::post('/actualizarContrasena','Inspectores@actualizarContrasena');
+    Route::get('/formActualizarContrasena','Inspectores@formActualizarContrasena');
     }); 
 
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
