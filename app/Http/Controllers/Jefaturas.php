@@ -103,6 +103,7 @@ class Jefaturas extends Controller
     }//fin de crearSubcarpeta
 
     public function verArchivos($id,$expediente){
+        if($id!=2){
         $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
         $editar=false;
         $expedienteID=Expediente::where('finca', '=', $expediente)->first();
@@ -118,6 +119,18 @@ class Jefaturas extends Controller
                         'expediente'=>$expediente,
                         'archivos'=>$archivos,
                         'permiso'=>$editar]);
+        }else{
+            $editar=false;
+            $expedienteID=Expediente::where('finca', '=', $expediente)->first();
+            $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
+            if($permisos!=null){
+                $editar=true;
+            }
+            return view('jefatura.archivosClausurasNotificaciones')->with([
+                'permiso'=>$editar,
+                'expediente'=>$expediente,
+                'carpeta'=>$id]);
+        }
     }// fin de verArchivos
 
     public function subirArchivo(Request $request){
