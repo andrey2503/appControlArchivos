@@ -52,14 +52,17 @@
     function limpiarTabla(){
       console.log("limpiando tabla");
       // $('.tabla-dinamica tbody tr').slice(0).remove();
-      $('.odd').remove();
+     
+      var table = $('.tabla-dinamica').DataTable();
+      table.rows().remove().draw(false);
     }// fin de limpiar tabla
 
     function success(result){
       limpiarTabla();
           $.each(result, function(valor) {
+            var ruta=result[valor].ruta_archivo;
             var botones='<a style="margin-right:5px;" class="btn btn-success btn-xs" href="{{ url("jefat/verExpediente")}}/'+result[valor].idFinca+'">ver expediente </a>'+
-            '<a target="_black" href="../../..{{ Storage::url('result[valor].ruta_archivo')}}" class="btn btn-primary btn-xs" > ver archivo</a>'
+            '<a target="_black" href="../../public{{ Storage::url('')}}'+ruta+'" class="btn btn-primary btn-xs" > ver archivo</a>'
             var tabla = $('#example').DataTable();
              tabla.row.add( [
             result[valor].idFinca,

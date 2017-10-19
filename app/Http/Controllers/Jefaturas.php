@@ -12,6 +12,7 @@ use App\tipo_documento;
 use App\archivos_expediente;
 use App\User;
 use App\Distribucion_distritos;
+use Hash;
 use Storage;
 class Jefaturas extends Controller
 {
@@ -209,15 +210,28 @@ class Jefaturas extends Controller
         $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
         // $archivos=archivos_expediente::all()->toArray();
         return json_encode($archivos);
-        // if($request->ajax()){
-        //             return response()->json([
-        //             'archivo'=>$archivos,
-        //             'cuenta'=> count($archivos)
-        //             ]);
-        //     }else{
-        //         return "Error de respuesta";
-        //     }//
+    }// fin buscarFiltrado
 
-    }// fin
+    public function actualizarContrasena(Request $request){
+        $this->validate($request,[
+            'contraseñaActual'=>'required',
+            'contraseñaNueva'=>'required',
+            'contraseñaConfirmar'=>'required|same:contraseñaNueva'
+            ]);
+        $user= User::find(\Auth::user()->id);
+        if(!Hash::check($request->contraseñaActual, $user->password)){
+          return back()->withErrors(['errorContrasena'=>'Contraseña no coincide']);
+            }else{               
+                $user->password=Hash::make($request->contraseñaNueva);
+                if($user->save()){
+                return redirect()->back()->with('message', 'Contraseña actualizada correctamente');
+                }else{
+                  return back()->withErrors(['errorContrasena'=>'Contraseña no coincide']);
+                }
+            }
+    }// fin de actualizarContrasena
 
+    public function formActualizarContrasena(){
+        return view('jefatura.actualizarContraseña');
+    }// fin de formActualizarContrasena
 }
