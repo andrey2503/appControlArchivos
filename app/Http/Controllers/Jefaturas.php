@@ -14,6 +14,7 @@ use App\User;
 use App\Distribucion_distritos;
 use Hash;
 use Storage;
+use Intervention\Image\Facades\Image;
 class Jefaturas extends Controller
 {
     /**
@@ -195,17 +196,14 @@ class Jefaturas extends Controller
             
             $distribucion = Distribucion_distritos::where('id_distrito', '=', $opcion)->first();
             if($distribucion==null){
-                // dd("null".);
                 $distribucion= new Distribucion_distritos();
                 $distribucion->id_distrito = $opcion;
                 $distribucion->id_usuario=$request->usuario[$num];
                 $distribucion->save();
-                // dd("se creo nuevo registro porque no dio null");
             }else{
                 $distribucion->id_distrito = $opcion;
                 $distribucion->id_usuario=$request->usuario[$num];
                 $distribucion->save();
-                // dd("se actualizo registro no se creo");
             }
             
         }
@@ -219,9 +217,7 @@ class Jefaturas extends Controller
     }// fin de buscar
 
      public function buscarFiltrado(Request $request){
-        // $archivosLista=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->toArray();
         $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
-        // $archivos=archivos_expediente::all()->toArray();
         return json_encode($archivos);
     }// fin buscarFiltrado
 
@@ -247,4 +243,13 @@ class Jefaturas extends Controller
     public function formActualizarContrasena(){
         return view('jefatura.actualizarContraseña');
     }// fin de formActualizarContrasena
+
+    public function descargarArchivo(Request $request){
+        $headers = ['Content-Type: application/pdf'];
+        return response()->download(storage_path("app/public/".$request->archivo,$request->archivo, $headers));
+    }// fin de descargarArchivo
+
+    protected function verArchivo(Request $request){
+      return response()->file(storage_path("app/public/".$request->archivo));
+    }//fin de verArchivo
 }
