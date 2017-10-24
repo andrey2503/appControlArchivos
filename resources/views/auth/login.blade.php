@@ -7,7 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ URL::asset('bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -41,11 +41,17 @@
           <div class="form-group has-feedback">
 
                 <input type="text" class="form-control" name="usuario" placeholder="Usuario">
-            <span class="glyphicon  glyphicon-user form-control-feedback"></span>
+                <span class="glyphicon  glyphicon-user form-control-feedback"></span>
+                @if($errors->has('usuario'))
+                  <span style="color: red;">{{ $errors->first('usuario') }}</span>
+                @endif
           </div>
           <div class="form-group has-feedback">
             <input type="password" class="form-control" name="password" placeholder="Contransena">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                @if($errors->has('password'))
+                  <span style="color: red;">{{ $errors->first('password') }}</span>
+                @endif
           </div>
 
           <div class="row">
@@ -65,12 +71,11 @@
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ URL::asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery-1.12.4.js') }}"></script>
     <!-- iCheck -->
     <script src="../../plugins/iCheck/icheck.min.js"></script>
-
+<script src="{{ URL::asset('bootstrap/js/bootstrap.min.js') }}"></script>
 
     <script>
 

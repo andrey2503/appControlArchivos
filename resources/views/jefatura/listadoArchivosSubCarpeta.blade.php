@@ -1,6 +1,7 @@
 @extends('jefatura.escritorio')
 
 @section('content')
+  @include('jefatura.menuNavegacion')
 <div class="container row col-md-12 contenedor-usuario">
   
 
@@ -24,12 +25,6 @@
                  @if(isset($archivos))
                     @foreach($archivos as $a)
                       <tr>
-                        <!-- <td> 
-                        <img width="40" src="{{ Storage::url('archivosFisicos') }}/{{$a->ruta_archivo}}"> 
-                        <img src=""></img>
-                        <img width="40" src="../../..{{ Storage::url($a->ruta_archivo) }}"> 
-
-                        </td> -->
                         <td>  {{ $a->ruta_archivo}}  </td>
                         <td>  {{ $a->tipo_id}} </td>
                         <td>  {{ $a->created_at}} </td>

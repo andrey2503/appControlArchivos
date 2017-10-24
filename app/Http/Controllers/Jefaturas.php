@@ -55,7 +55,7 @@ class Jefaturas extends Controller
     public function nuevoExpediente(Request $request)
     {
         $this->validate($request,[
-            'expediente'=>'required',
+            'expediente'=>'required|min:6',
             'distrito'=>'required',]);
         
         $expediente = new Expediente();
@@ -119,7 +119,8 @@ class Jefaturas extends Controller
                         'carpeta'=>$id,
                         'expediente'=>$expediente,
                         'archivos'=>$archivos,
-                        'permiso'=>$editar]);
+                        'permiso'=>$editar,
+                        'distrito'=>$expedienteID->distrito_id]);
         }else{
             $editar=false;
             $expedienteID=Expediente::where('finca', '=', $expediente)->first();
@@ -130,7 +131,8 @@ class Jefaturas extends Controller
             return view('jefatura.archivosClausurasNotificaciones')->with([
                 'permiso'=>$editar,
                 'expediente'=>$expediente,
-                'carpeta'=>$id]);
+                'carpeta'=>$id,
+                'distrito'=>$expedienteID->distrito_id]);
         }
     }// fin de verArchivos
 

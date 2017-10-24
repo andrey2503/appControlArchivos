@@ -1,6 +1,7 @@
 @extends('jefatura.escritorio')
 
 @section('content')
+  @include('jefatura.menuNavegacion')
 <div class="container row col-md-12 contenedor-usuario">
   
 
