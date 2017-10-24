@@ -64,7 +64,8 @@ class Inspectores extends Controller
                         'carpeta'=>$id,
                         'expediente'=>$expediente,
                         'archivos'=>$archivos,
-                        'permiso'=>$editar]);
+                        'permiso'=>$editar,
+                        'distrito'=>$expedienteID->distrito_id]);
     }// fin de verArchivos
 
      public function subirArchivo(Request $request){

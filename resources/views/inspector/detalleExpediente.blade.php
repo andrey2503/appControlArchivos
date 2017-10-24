@@ -2,6 +2,8 @@
 
 @section('content')
 @if(isset($expediente))
+	@include('jefatura.menuNavegacion')
+	
 <div class="container row col-md-12 contenedor-usuario">
 
 
