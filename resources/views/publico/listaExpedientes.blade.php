@@ -1,6 +1,7 @@
 @extends('publico.escritorio')
 
 @section('content')
+   @include('publico.menuNavegacion')
 <div class="container row col-md-12 contenedor-usuario">
   
 

@@ -2,6 +2,7 @@
 
 @section('content')
 @if(isset($expediente))
+	 @include('publico.menuNavegacion')
 <div class="container row col-md-12 contenedor-usuario">
 
 <div>

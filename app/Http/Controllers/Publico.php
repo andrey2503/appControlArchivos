@@ -55,7 +55,7 @@ class Publico extends Controller
         return view('publico.listadoArchivosSubCarpeta')
                     ->with(['carpeta'=>$id,
                         'expediente'=>$expediente,
-                        'archivos'=>$archivos,,
+                        'archivos'=>$archivos,
                         'distrito'=>$expedienteID->distrito_id]);
     }// fin de verArchivos
 }
