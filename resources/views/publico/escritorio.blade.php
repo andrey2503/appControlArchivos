@@ -77,12 +77,12 @@
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <li class="user-footer" style="padding: 25px 10px;">
+                    <div class="">
+                      <a href="#" style="margin-bottom: 10px;" class="btn btn-primary btn-flat col-md-12">Actualizar datos</a>
                     </div>
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    <div class="">
+                      <a href="{{ url('public/formActualizarContrasena')}}" class="btn btn-warning btn-flat col-md-12">Actualizar contraseña</a>
                     </div>
                   </li>
                 </ul>

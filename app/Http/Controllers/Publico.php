@@ -6,6 +6,8 @@ use App\Distrito;
 use App\SubExpediente;
 use App\archivos_expediente;
 use Illuminate\Http\Request;
+use App\User;
+use Hash;
 
 class Publico extends Controller
 {
@@ -58,4 +60,27 @@ class Publico extends Controller
                         'archivos'=>$archivos,
                         'distrito'=>$expedienteID->distrito_id]);
     }// fin de verArchivos
+
+    public function actualizarContrasena(Request $request){
+        $this->validate($request,[
+            'contraseñaActual'=>'required',
+            'contraseñaNueva'=>'required',
+            'contraseñaConfirmar'=>'required|same:contraseñaNueva'
+            ]);
+        $user= User::find(\Auth::user()->id);
+        if(!Hash::check($request->contraseñaActual, $user->password)){
+          return back()->withErrors(['errorContrasena'=>'Contraseña no coincide']);
+            }else{               
+                $user->password=Hash::make($request->contraseñaNueva);
+                if($user->save()){
+                return redirect()->back()->with('message', 'Contraseña actualizada correctamente');
+                }else{
+                  return back()->withErrors(['errorContrasena'=>'Contraseña no coincide']);
+                }
+            }
+    }// fin de actualizarContrasena
+
+     public function formActualizarContrasena(){
+        return view('publico.actualizarContraseña');
+    }// fin de formActualizarContrasena
 }
