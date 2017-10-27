@@ -124,7 +124,7 @@ class Inspectores extends Controller
     public function nuevoExpediente(Request $request)
     {
         $this->validate($request,[
-            'expediente'=>'required',
+            'expediente'=>'required|min:6',
             'distrito'=>'required',]);
         
         $expediente = new Expediente();
