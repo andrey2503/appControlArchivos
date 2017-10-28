@@ -114,6 +114,15 @@
                  </small>
               </a>
             </li>
+
+            <li>
+              <a href="{{ URL::asset('inspec/buscar') }}">
+                <i class="fa fa-th"></i> <span>Buscar</span>
+                 <small class="label pull-right bg-blue">
+                   <span class="glyphicon glyphicon-search"></span>
+                 </small>
+              </a>
+            </li>
             
              <li>
               <a href="{{ URL::asset('inspec/nuevoExpediente') }}">

@@ -87,6 +87,8 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/listaExpedientes','Inspectores@expedientes');
     Route::post('/actualizarContrasena','Inspectores@actualizarContrasena');
     Route::get('/formActualizarContrasena','Inspectores@formActualizarContrasena');
+    Route::get('/buscar','Inspectores@buscar');
+    Route::post('/buscar','Inspectores@buscarFiltrado');
     }); 
 
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
