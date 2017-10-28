@@ -113,6 +113,15 @@
               </a>
             </li>
             
+            <li>
+              <a href="{{ URL::asset('public/buscar') }}">
+                <i class="fa fa-th"></i> <span>Buscar</span>
+                 <small class="label pull-right bg-blue">
+                   <span class="glyphicon glyphicon-search"></span>
+                 </small>
+              </a>
+            </li>
+
              <li>
               <a href="{{ URL::asset('public/listaExpedientes') }}">
                 <i class="fa fa-th"></i> <span>Expedientes </span>

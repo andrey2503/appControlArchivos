@@ -101,6 +101,8 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/verArchivos/{id}/{expediente}','Publico@verArchivos');
     Route::post('/actualizarContrasena','Publico@actualizarContrasena');
     Route::get('/formActualizarContrasena','Publico@formActualizarContrasena');
+    Route::get('/buscar','Publico@buscar');
+    Route::post('/buscar','Publico@buscarFiltrado');
     });
 
 

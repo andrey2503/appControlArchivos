@@ -83,4 +83,14 @@ class Publico extends Controller
      public function formActualizarContrasena(){
         return view('publico.actualizarContraseña');
     }// fin de formActualizarContrasena
+
+    public function buscar(){
+        $subcarpetas= SubExpediente::all();
+        return view('publico.buscar')->with(['subcarpetas'=>$subcarpetas]);
+    }// fin de buscar
+
+     public function buscarFiltrado(Request $request){
+        $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
+        return json_encode($archivos);
+    }// fin buscarFiltrado
 }
