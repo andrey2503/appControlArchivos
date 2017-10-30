@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/expedientes/{id}','Jefaturas@listaExpedientes');
     Route::get('/verArchivos/{id}/{expediente}','Jefaturas@verArchivos');
     Route::post('/subirArchivo','Jefaturas@subirArchivo');
+    Route::post('/subirClausura','Jefaturas@subirClausura');
     Route::post('/tipoDocumento','Jefaturas@tipoDocumento');
     Route::get('/administrarDistritos','Jefaturas@administrarDistritos');
     Route::post('/administrarDistritos','Jefaturas@asignarDistritos');

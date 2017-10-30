@@ -8,7 +8,11 @@
           <!-- tabla principal de usuarios -->
           @if($permiso)
           <div class="row tabla-usuarios">
-          @include('jefatura.subirArchivo')
+            @if($carpeta==2)
+              @include('jefatura.subirClausura')
+            @else
+              @include('jefatura.subirArchivo')
+            @endif
           </div>
           @endif
 
@@ -18,7 +22,7 @@
                 <thead>
                   <th>Documento</th>
                   <th>Tipo</th>
-                  <th>Fecha</th>
+                  <th>Fecha subida</th>
                   <th>Accion</th>
                 </thead>
                 <tbody>

@@ -104,7 +104,6 @@ class Jefaturas extends Controller
     }//fin de crearSubcarpeta
 
     public function verArchivos($id,$expediente){
-        if($id!=2){
         $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
         $editar=false;
         $expedienteID=Expediente::where('finca', '=', $expediente)->first();
@@ -121,19 +120,7 @@ class Jefaturas extends Controller
                         'archivos'=>$archivos,
                         'permiso'=>$editar,
                         'distrito'=>$expedienteID->distrito_id]);
-        }else{
-            $editar=false;
-            $expedienteID=Expediente::where('finca', '=', $expediente)->first();
-            $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
-            if($permisos!=null){
-                $editar=true;
-            }
-            return view('jefatura.archivosClausurasNotificaciones')->with([
-                'permiso'=>$editar,
-                'expediente'=>$expediente,
-                'carpeta'=>$id,
-                'distrito'=>$expedienteID->distrito_id]);
-        }
+       
     }// fin de verArchivos
 
     public function subirArchivo(Request $request){
@@ -160,6 +147,35 @@ class Jefaturas extends Controller
         $archivo_expediente->save();
         return back();
     }// fin de subir archivo
+
+    public function subirClausura(Request $request){
+         $this->validate($request,[
+                'checkbox'=>'required',
+                'fecha'=>'required',
+                'archivo'=>'required|mimes:jpeg,bmp,png,pdf',
+                ]);
+            $archivo= $request->file('archivo');
+            $ruta_archivo= time().'_'.$archivo->getClientOriginalName();
+            $tipo_documento= tipo_documento::where('carpeta_id', '=',2)->first();
+            $id_tipo_documento=0;
+            if($tipo_documento===null){
+                $tipo_documento= new tipo_documento();
+                $tipo_documento->tipo="Clausura";
+                $tipo_documento->carpeta_id=2;
+                $tipo_documento->save();
+                $id_tipo_documento=$tipo_documento->id;
+            }
+                
+            $archivo_expediente = new archivos_expediente();
+            $archivo_expediente->carpeta_id = $request->id;
+            $archivo_expediente->idFinca= $request->expediente;
+            $archivo_expediente->ruta_archivo=$ruta_archivo;
+            $archivo_expediente->tipo_id= $tipo_documento->id;
+            Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
+            $archivo_expediente->save();
+            // dd($request->fecha);
+            return back();
+    }// fin de subirClausura
 
     public function tipoDocumento(Request $request){
 
