@@ -173,6 +173,17 @@ class Jefaturas extends Controller
             $archivo_expediente->tipo_id= $tipo_documento->id;
             Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
             $archivo_expediente->save();
+
+            $notificacion= new Notificacion();
+            $notificacion->idFinca=$request->expediente;
+            $notificacion->user_id=\Auth::user()->id;
+            $notificacion->archivo_id=$archivo_expediente->id;
+            $notificacion->fecha=$request->fecha;
+            $notificacion->tipo_archivo=$request->checkbox;
+            $notificacion->save();
+
+
+
             // dd($request->fecha);
             return back();
     }// fin de subirClausura
@@ -225,6 +236,7 @@ class Jefaturas extends Controller
             }
             
         }
+        // retornar con mensaje
         return back();
         
     }// fin de listaDIstritos

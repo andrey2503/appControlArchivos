@@ -18,7 +18,8 @@ class CreateDistribucionDistritosTable extends Migration
             $table->integer('id_distrito')->unsigned();
             $table->integer('id_usuario')->unsigned();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('id_usuario')->references('id')->on('users');
+            $table->foreign('id_distrito')->references('id')->on('distritos');
             $table->timestamps();
         });
     }

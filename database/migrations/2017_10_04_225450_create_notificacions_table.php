@@ -18,10 +18,12 @@ class CreateNotificacionsTable extends Migration
 
             $table->string('idFinca')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('archivo_id')->unsigned();
             $table->date('fecha');
-            $table->string('direccion');
-            $table->integer('estado');
+            $table->integer('tipo_archivo');
+            
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('archivo_id')->references('id')->on('archivos_expedientes');
             $table->foreign('idFinca')->references('finca')->on('expedientes');
 
             $table->timestamps();
