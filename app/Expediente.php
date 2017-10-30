@@ -16,7 +16,13 @@ class Expediente extends Model
      *
      * @var array
      */
+    public $primaryKey = 'finca';
+    public $incrementing = false;
     protected $fillable = [
         'finca', 'estado', 'user_id','distrito_id',
     ];
+
+    public function notificacion(){
+        return $this->belongsTo('App\Notificacion');
+    }// fin de la reacion notificacion
 }

@@ -15,6 +15,10 @@ class Notificacion extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'idFinca', 'fecha','direccion','user_id','estado',
+        'id', 'idFinca', 'fecha','archivo_id','user_id','tipo_archivo',
     ];
+
+    public function expedientes(){
+        return $this->hasMany('App\Expediente');
+    }
 }

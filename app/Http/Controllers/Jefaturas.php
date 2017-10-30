@@ -75,7 +75,7 @@ class Jefaturas extends Controller
     {
         //
         $subcarpetas= SubExpediente::all();
-        $expediente=Expediente::where('finca', '=', $id)->first();
+        $expediente=Expediente::find($id);
         return view('jefatura.detalleExpediente')
                 ->with(['expediente'=>$expediente,
             'subcarpetas'=>$subcarpetas]);
@@ -106,7 +106,7 @@ class Jefaturas extends Controller
     public function verArchivos($id,$expediente){
         $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
         $editar=false;
-        $expedienteID=Expediente::where('finca', '=', $expediente)->first();
+        $expedienteID=Expediente::find($expediente);
         $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
         if($permisos!=null){
             $editar=true;
@@ -143,7 +143,6 @@ class Jefaturas extends Controller
         
         Storage::disk('public')->put($ruta_archivo,
             file_get_contents($archivo->getRealPath()));
-        // dd($archivo_expediente);
         $archivo_expediente->save();
         return back();
     }// fin de subir archivo
@@ -181,10 +180,10 @@ class Jefaturas extends Controller
             $notificacion->fecha=$request->fecha;
             $notificacion->tipo_archivo=$request->checkbox;
             $notificacion->save();
-
-
-
-            // dd($request->fecha);
+            $expediente = Expediente::where('finca', '=', $request->expediente)->first();
+            $expediente->estado=$request->checkbox;
+            $expediente->save();
+            // dd($expediente);
             return back();
     }// fin de subirClausura
 

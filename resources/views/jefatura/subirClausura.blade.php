@@ -18,7 +18,7 @@
    </div>
 
     <label class="checkbox-inline">
-      <input checked="true" class="checkbox" type="checkbox" id="inlineCheckbox1" value="1" name="checkbox"> Verde
+      <input  class="checkbox" type="checkbox" id="inlineCheckbox1" value="1" name="checkbox"> Verde
     </label>
     <label class="checkbox-inline">
       <input class="checkbox" type="checkbox" id="inlineCheckbox2" value="2"> Amarillo
