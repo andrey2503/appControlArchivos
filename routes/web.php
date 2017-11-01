@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/formActualizarContrasena','Jefaturas@formActualizarContrasena');
     Route::get('/descargarArchivo','Jefaturas@descargarArchivo');
     Route::get('/verArchivo','Jefaturas@verArchivo');
+    Route::get('/verNotificaciones/{id}','Jefaturas@lista_clausuras_notificaciones');
 
     });
 

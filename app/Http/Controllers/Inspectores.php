@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Notificacion;
 use App\Distrito;
 use App\Expediente;
 use App\SubExpediente;
@@ -23,8 +22,7 @@ class Inspectores extends Controller
     public function index()
     {
         //    public function index()
-        $notificaciones= Notificacion::all()->where('estado','=',0);
-      return view('inspector.index')->with(['notificaciones'=>$notificaciones]);
+      return view('inspector.index');
     }
 
     public function listaDistritos(){

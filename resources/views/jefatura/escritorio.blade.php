@@ -151,6 +151,23 @@
               </a>
             </li>
 
+            <li>
+              <a href="{{ URL::asset('jefat/verNotificaciones/1') }}">
+                <i class="fa fa-th"></i> <span>Primera revicion </span>
+                 <small class="label pull-right bg-green">
+                   <span class="glyphicon glyphicon-list-alt"></span>
+                 </small>
+              </a>
+            </li>
+
+            <li>
+              <a href="{{ URL::asset('jefat/verNotificaciones/2') }}">
+                <i class="fa fa-th"></i> <span>Segunda revicion </span>
+                 <small class="label pull-right bg-green">
+                   <span class="glyphicon glyphicon-list-alt"></span>
+                 </small>
+              </a>
+            </li>
 
             <li>
               <a href="{{ URL::asset('/out') }}">

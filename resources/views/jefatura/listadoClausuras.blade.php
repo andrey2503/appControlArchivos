@@ -8,7 +8,7 @@
           <!-- tabla principal de usuarios -->
           @if($permiso)
           <div class="row tabla-usuarios">
-             @include('jefatura.subirArchivo')
+             @include('jefatura.subirClausura')
           </div>
           @endif
 
