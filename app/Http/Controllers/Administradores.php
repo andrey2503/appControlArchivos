@@ -60,9 +60,9 @@ class Administradores extends Controller
         $user->password = Hash::make($contrasena);
         $user->state=$request->estado;
       if($user->save()){
-            return redirect('/');
+            return redirect()->back()->with('message','Usuario '.$request->usuario.' creado correctamente');
         }else{
-            return redirect('/');
+            back()->withErrors(['errorUsuario'=>'Error al crear usuario']);
         }
     }
 

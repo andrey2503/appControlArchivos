@@ -65,6 +65,30 @@
             <ul class="nav navbar-nav">
              
               <!-- User Account: style can be found in dropdown.less -->
+
+
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" >
+                   <div class="div-content-font-control">
+                        <div class="div-control div-control-plus">
+                          <span class="glyphicon glyphicon-text-size"> </span><span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                </a>
+              </li>
+
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" >
+                   <div class="div-content-font-control">
+                       
+                        <div class="div-control div-control-minus">
+                          <span class="glyphicon glyphicon-text-size"> </span><span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                    </div>
+                </a>
+              </li>
+
+
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span class="hidden-xs">{{ Auth::user()->name }}</span>
@@ -221,6 +245,7 @@
 
     <script src="{{ URL::asset('bootstrap/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::asset('bootstrap/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('js/mainJS.js') }}"></script>
     <script type="text/javascript">
   $(document).ready(function() {
     $('#example').DataTable();

@@ -6,11 +6,6 @@
 	padding: 15px;
 }
 
-/**{
-
-	font-size: 100px !important;
-}*/
-
 .btn-modal-inspeccion{
 	margin-top: 10px;
 }
@@ -22,5 +17,9 @@
 .login-page{
 	background-image: url(../img/bg-login.jpg);
 	background-size: cover; 
-	/*background: white !important;*/
 }
+
+.div-content-font-control{
+	display: inline-flex;
+}
+

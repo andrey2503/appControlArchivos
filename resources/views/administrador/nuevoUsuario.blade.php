@@ -6,6 +6,11 @@
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
                   <h3 class="box-title"> Nuevo usuario</h3>
+                  @if(session()->has('message'))
+                      <div class="alert alert-success">
+                          {{ session()->get('message') }}
+                      </div>
+                  @endif
       </div><!-- /.box-header -->
       <form  role="form"   method="post"  action="{{ url('admin/nuevoUsuario') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}

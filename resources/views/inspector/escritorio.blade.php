@@ -64,6 +64,26 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                            
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" >
+                   <div class="div-content-font-control">
+                        <div class="div-control div-control-plus">
+                          <span class="glyphicon glyphicon-text-size"> </span><span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                </a>
+              </li>
+
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" >
+                   <div class="div-content-font-control">
+                       
+                        <div class="div-control div-control-minus">
+                          <span class="glyphicon glyphicon-text-size"> </span><span class="glyphicon glyphicon-minus"></span>
+                        </div>
+                    </div>
+                </a>
+              </li>
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
