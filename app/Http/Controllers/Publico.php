@@ -11,45 +11,56 @@ use Hash;
 
 class Publico extends Controller
 {
-    //
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Retorna una vista con una tabla donde se listan todos los distritos
+     * @return view
      */
-    public function index()
-    {
-        //
-        return view('publico.index');
-    }
-
     public function listaDistritos(){
         $distritos= Distrito::all();
         return view('publico.distritos')->with(['distritos'=>$distritos]);
     }// fin de listaDIstritos
-
+    /**
+      * Retorna una vista con una tabla donde se listan todos las fincas
+      * @return type
+      */
      public function expedientes()
     {
         $expedientes= Expediente::all();
         return view('publico.listaExpedientes')->with(['expedientes'=>$expedientes]);
     }// Expedientes
-
+    /**
+     * Retorna una vista con una tabla donde se listan los expedientes asociados 
+     * a un distrito
+     * @param int $id 
+     * @return view
+     */
     public function listaExpedientes($id)
     {
         $expedientes=Expediente::all()->where('distrito_id', '=', $id)->all();
         return view('publico.listaExpedientes')->with(['expedientes'=>$expedientes]);
     }// listaExpedientes
-
+    /**
+     * devuelve una vista con las subcarpetas donde se guardan los archivos del sistema
+     * envia a la vista los datos del expediente
+     * @param int $id 
+     * @return vista
+     */
     public function detalleExpediente($id)
     {
-        //
         $subcarpetas= SubExpediente::all();
         $expediente=Expediente::where('finca', '=', $id)->first();
         return view('publico.detalleExpediente')
                 ->with(['expediente'=>$expediente,
             'subcarpetas'=>$subcarpetas]);
     }// fin de detalleExpediente
-
+    /**
+     * Devuelve una vista con una tabla donde se listan los archivos asociados a cada 
+     * subcarpeta dentro del sistema, verifica los permisos del usuario quien esta consultando 
+     * los archivos y determinar si se muestra o no se muestra el formulario para cargar nuevos arhcivo
+     * @param int $id 
+     * @param String $expediente 
+     * @return view
+     */
     public function verArchivos($id,$expediente){
         $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
         $expedienteID=Expediente::where('finca', '=', $expediente)->first();
@@ -60,7 +71,12 @@ class Publico extends Controller
                         'archivos'=>$archivos,
                         'distrito'=>$expedienteID->distrito_id]);
     }// fin de verArchivos
-
+    /**
+     * Actualiza la contraseña de un usuario verificando su contraseña
+     * actual y confirmando la nueva contraseña
+     * @param Request $request 
+     * @return view
+     */
     public function actualizarContrasena(Request $request){
         $this->validate($request,[
             'contraseñaActual'=>'required',
@@ -79,16 +95,27 @@ class Publico extends Controller
                 }
             }
     }// fin de actualizarContrasena
-
+    /**
+     * Muestra un formulario para actualizar la contraseña del usuario
+     * @return view
+     */
      public function formActualizarContrasena(){
         return view('publico.actualizarContraseña');
     }// fin de formActualizarContrasena
-
+    /**
+     * Retorna una vista con las subcarpetas para poder filtrar los archivos
+     * de todos los expedientes
+     * @return view
+     */
     public function buscar(){
         $subcarpetas= SubExpediente::all();
         return view('publico.buscar')->with(['subcarpetas'=>$subcarpetas]);
     }// fin de buscar
-
+    /**
+     * Retorna el listado de archivos asociados a una subcarpeta para realizar el filtrado
+     * @param Request $request 
+     * @return json respuesta a una peticion ajax
+     */
      public function buscarFiltrado(Request $request){
         $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
         return json_encode($archivos);

@@ -177,9 +177,9 @@ class Jefaturas extends Controller
         $archivo_expediente->tipo_id= $request->tipo;
         Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
         if($archivo_expediente->save()){
-        return redirect()->back()->with('message','Archivo '.$ruta_archivo.' cargado correctamente');
+            return redirect()->back()->with('message','Archivo '.$ruta_archivo.' cargado correctamente');
         }else{
-        return redirect()->back()->with('error','Error al cargar archivo');
+            return redirect()->back()->with('error','Error al cargar archivo');
         }
     }// fin de subir archivo
     /**
