@@ -14,78 +14,89 @@ use App\Distribucion_distritos;
 use App\Clausura_notificacion;
 use Hash;
 use Storage;
-use Intervention\Image\Facades\Image;
 class Jefaturas extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muentra un formularion para la creación de un nuevo expediente o finca
+     * dentro del sistema
+     * @return type
      */
-    public function index()
-    {
-        //
-        return view('jefatura.nuevoExpediente');
-    }
-
     public function vistaCrearExpediente(){
         $distritos= Distrito::all();
         return view('jefatura.nuevoExpediente')->with(['distritos'=>$distritos]);
     }
-
+    /**
+     * Retorna una vista con una tabla donde se listan todos los distritos
+     * @return view
+     */
     public function listaDistritos(){
         $distritos= Distrito::all();
         return view('jefatura.distritos')->with(['distritos'=>$distritos]);
     }// fin de listaDIstritos
-     
+     /**
+      * Retorna una vista con una tabla donde se listan todos las fincas
+      * @return type
+      */
     public function expedientes()
     {
         $expedientes= Expediente::all();
         return view('jefatura.listaExpedientes')->with(['expedientes'=>$expedientes]);
-
     }// Expedientes
-
+    /**
+     * Retorna una vista con una tabla donde se listan los expedientes asociados 
+     * a un distrito
+     * @param int $id 
+     * @return view
+     */
     public function listaExpedientes($id)
     {
         $expedientes=Expediente::all()->where('distrito_id', '=', $id)->all();
         return view('jefatura.listaExpedientes')->with(['expedientes'=>$expedientes]);
-
     }// listaExpedientes
-
+    /**
+     * Valida y recibe los datos para crear un nuevo expediente o finca en el sistema
+     * @param Request $request 
+     * @return devuelve a la vista un mensaje de existoso o de error
+     */
     public function nuevoExpediente(Request $request)
     {
         $this->validate($request,[
-            'expediente'=>'required|min:6',
+            'finca'=>'required|min:6|unique:expedientes',
             'distrito'=>'required',]);
-        
         $expediente = new Expediente();
-        $expediente->finca = $request->expediente;
+        $expediente->finca = $request->finca;
         $expediente->estado=1;
         $expediente->distrito_id=$request->distrito;
         $idUsuario=\Auth::user()->id;
         $expediente->user_id=$idUsuario;
         if($expediente->save()){
-            return redirect('/');
+            return redirect()->back()->with('message','Expediente '.$request->expediente.' creado correctamente');
         }else{
-             return redirect('/');
+            return redirect()->back()->with('error_expediente','Expediente '.$request->expediente.' creado correctamente');
         }
     }// fin de nuevoExpediente
-
+    /**
+     * devuelve una vista con las subcarpetas donde se guardan los archivos del sistema
+     * envia a la vista los datos del expediente
+     * @param int $id 
+     * @return vista
+     */
     public function detalleExpediente($id)
     {
-        //
         $subcarpetas= SubExpediente::all();
         $expediente=Expediente::find($id);
         return view('jefatura.detalleExpediente')
                 ->with(['expediente'=>$expediente,
             'subcarpetas'=>$subcarpetas]);
     }// fin de detalleExpediente
-
+    /**
+     * Permite crear nuevas subcarpetas dentro de los expedientes para guardar nuevos archivos
+     * @param Request $request 
+     * @return responde a una peticion ajax con jquery
+     */
     public function crearSubcarpeta(Request $request){
-            
             $this->validate($request,[
             'carpeta'=>'required',]);
-
             $subcarpeta =new SubExpediente();
             $subcarpeta->carpeta=$request->carpeta;
             $subcarpeta->save();
@@ -99,20 +110,24 @@ class Jefaturas extends Controller
             }else{
                 return "Error de respuesta";
             }//
-
-        
     }//fin de crearSubcarpeta
-
+    /**
+     * Devuelve una vista con una tabla donde se listan los archivos asociados a cada 
+     * subcarpeta dentro del sistema, verifica los permisos del usuario quien esta consultando 
+     * los archivos y determinar si se muestra o no se muestra el formulario para cargar nuevos arhcivo
+     * @param int $id 
+     * @param String $expediente 
+     * @return view
+     */
     public function verArchivos($id,$expediente){
         if($id!=2){
             $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
             $editar=false;
             $expedienteID=Expediente::find($expediente);
             $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
-            if($permisos!=null){
-                $editar=true;
-            }
-
+                if($permisos!=null){
+                    $editar=true;
+                }
             $tipo_documento= tipo_documento::all();
             $datosVista=['tipo_documento'=>$tipo_documento,
                             'carpeta'=>$id,
@@ -122,16 +137,14 @@ class Jefaturas extends Controller
                             'distrito'=>$expedienteID->distrito_id];
             return view('jefatura.listadoArchivosSubCarpeta')
                     ->with($datosVista);
-
         }else{
-            $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
+            $archivos=Clausura_notificacion::all()->where('idFinca','=',$expediente)->all();
             $editar=false;
             $expedienteID=Expediente::find($expediente);
             $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
-            if($permisos!=null){
-                $editar=true;
-            }
-
+                if($permisos!=null){
+                    $editar=true;
+                }
             $tipo_documento= tipo_documento::all();
             $datosVista=['tipo_documento'=>$tipo_documento,
                             'carpeta'=>$id,
@@ -141,13 +154,13 @@ class Jefaturas extends Controller
                             'distrito'=>$expedienteID->distrito_id];
             return view('jefatura.listadoClausuras')
                     ->with($datosVista);
-
         }// fin del else
-        
-        
-       
     }// fin de verArchivos
-
+    /**
+     * Valida el tipo de archivo y recibe los datos y el archivo y lo guarda en un disco de laravel
+     * @param Request $request 
+     * @return view back
+     */
     public function subirArchivo(Request $request){
         $this->validate($request,[
             'archivo'=>'required|mimes:jpeg,bmp,png,pdf',
@@ -155,23 +168,27 @@ class Jefaturas extends Controller
             'id'=>'required',
             'expediente'=>'required'
             ]);
-        // dd($request);
-        // $request->file('archivo')->store('public');
         $archivo= $request->file('archivo');
         $ruta_archivo= time().'_'.$archivo->getClientOriginalName();
-
         $archivo_expediente = new archivos_expediente();
         $archivo_expediente->carpeta_id = $request->id;
         $archivo_expediente->idFinca= $request->expediente;
         $archivo_expediente->ruta_archivo=$ruta_archivo;
         $archivo_expediente->tipo_id= $request->tipo;
-        
-        Storage::disk('public')->put($ruta_archivo,
-            file_get_contents($archivo->getRealPath()));
-        $archivo_expediente->save();
-        return back();
+        Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
+        if($archivo_expediente->save()){
+        return redirect()->back()->with('message','Archivo '.$ruta_archivo.' cargado correctamente');
+        }else{
+        return redirect()->back()->with('error','Error al cargar archivo');
+        }
     }// fin de subir archivo
-
+    /**
+     * Valida y recibe los datos y el archivo para la carpeta de clausuaras y notificaciones
+     * Verifica si hay clausura o notificacion abiertas y las cierran dejanco activa la ultima
+     * clausura o notificaion cargada
+     * @param Request $request 
+     * @return type
+     */
     public function subirClausura(Request $request){
          $this->validate($request,[
                 'checkbox'=>'required',
@@ -190,9 +207,7 @@ class Jefaturas extends Controller
                 $tipo_documento->save();
                 $id_tipo_documento=$tipo_documento->id;
             }
-            
             Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
-            //si es una clausura
             if($request->checkbox==1){
                  $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
                     // dd($notificacion);
@@ -212,7 +227,6 @@ class Jefaturas extends Controller
                  if($clausura_notificacion==null){
                         // crear nueva clausura y cerrar toda las notificaciones
                     $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
-                    // dd($notificacion);
                     if($notificacion!=null){
                         $notificacion->estado=0;
                         $notificacion->save();
@@ -243,13 +257,12 @@ class Jefaturas extends Controller
                  }
                  // si es una notificacion
             }else if($request->checkbox==3){
-                $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
+                    $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
                     $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
                     if($clausura_notificacion!=null){
                         $clausura_notificacion->estado=0;
                         $clausura_notificacion->save();
                     }
-                    // dd($notificacion);
                     if($notificacion==null){
                         //poner la notificacion en lista uno
                         $clausura_notificacion=new Clausura_notificacion();
@@ -265,7 +278,7 @@ class Jefaturas extends Controller
                         //poner la notificacion que hay en inactiva o 0
                         $notificacion->estado=0;
                         $notificacion->save();
-                        // poner la notificacion en lista #
+                        // poner la notificacion en lista #2
                         $clausura_notificacion=new Clausura_notificacion();
                         $clausura_notificacion->fecha_inicio=$request->fecha;
                         $clausura_notificacion->fecha_revicion=$this->sumarMes($request->fecha);
@@ -275,41 +288,35 @@ class Jefaturas extends Controller
                         $clausura_notificacion->tipo_archivo=3;
                         $clausura_notificacion->lista=2;
                         $clausura_notificacion->save();
-
                     }
-     
-
             }// fin del if de 3 
             else   if($request->checkbox==4){
-                 $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
-                    // dd($notificacion);
+                    $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
                     if($notificacion!=null){
                         $notificacion->estado=0;
                         $notificacion->save();
                     }
-                    
-                     $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
+                    $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
                     if($clausura_notificacion!=null){
                         $clausura_notificacion->estado=0;
                         $clausura_notificacion->save();
                     }
             }
-           
-
             $expediente = Expediente::where('finca', '=', $request->expediente)->first();
             $expediente->estado=$request->checkbox;
             $expediente->save();
-            // dd($expediente);
-            return back();
+            return redirect()->back()->with('message','Archivo '.$ruta_archivo.' cargado correctamente');
     }// fin de subirClausura
-
+    /**
+     * Permite crear nuevos tipos de archivos en las subcarpetas para asocialor a los archivos
+     * @param Request $request 
+     * @return respuesta de una peticion ajax
+     */
     public function tipoDocumento(Request $request){
-
         $this->validate($request,[
             'id'=>'required',
             'tipo'=>'required',
             ]);
-
         $nuevo_tipo= new tipo_documento();
         $nuevo_tipo->tipo=$request->tipo;
         $nuevo_tipo->carpeta_id= $request->id;
@@ -325,7 +332,11 @@ class Jefaturas extends Controller
             }//
         }
     }// fin de public function tipoDocumento(Request $request)
-
+    /**
+     * Retorna una vista con una tabla donde se lista los distritos y una lista de 
+     * los usuarios jefatura e inspectores para asociarlos a un distrito
+     * @return type
+     */
     public function administrarDistritos(){
         $distritos= Distrito::all();
         $usuarios= User::all();
@@ -333,11 +344,14 @@ class Jefaturas extends Controller
         return view('jefatura.administrarDistritos')
                 ->with(['distritos'=>$distritos,'usuarios'=>$usuarios,'distribucion'=>$distribucion]);
     }// fin de listaDIstritos
-
+    /**
+     * Asigna los distritos a los usuarios para poder darle los permiso de subir archivos
+     * para los expedientes dentro de los distritos
+     * @param Request $request 
+     * @return view
+     */
     public function asignarDistritos(Request $request){
-
         foreach ($request->distrito as $num => $opcion) {
-            
             $distribucion = Distribucion_distritos::where('id_distrito', '=', $opcion)->first();
             if($distribucion==null){
                 $distribucion= new Distribucion_distritos();
@@ -349,23 +363,33 @@ class Jefaturas extends Controller
                 $distribucion->id_usuario=$request->usuario[$num];
                 $distribucion->save();
             }
-            
         }
-        // retornar con mensaje
-        return back();
-        
+        return redirect()->back()->with('message','Distritos asignados');
     }// fin de listaDIstritos
-
+    /**
+     * Retorna una vista con las subcarpetas para poder filtrar los archivos
+     * de todos los expedientes
+     * @return view
+     */
     public function buscar(){
         $subcarpetas= SubExpediente::all();
         return view('jefatura.buscar')->with(['subcarpetas'=>$subcarpetas]);
     }// fin de buscar
-
+    /**
+     * Retorna el listado de archivos asociados a una subcarpeta para realizar el filtrado
+     * @param Request $request 
+     * @return json respuesta a una peticion ajax
+     */
      public function buscarFiltrado(Request $request){
         $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
         return json_encode($archivos);
     }// fin buscarFiltrado
-
+    /**
+     * Actualiza la contraseña de un usuario verificando su contraseña
+     * actual y confirmando la nueva contraseña
+     * @param Request $request 
+     * @return view
+     */
     public function actualizarContrasena(Request $request){
         $this->validate($request,[
             'contraseñaActual'=>'required',
@@ -384,36 +408,53 @@ class Jefaturas extends Controller
                 }
             }
     }// fin de actualizarContrasena
-
+    /**
+     * Muestra un formulario para actualizar la contraseña del usuario
+     * @return view
+     */
     public function formActualizarContrasena(){
         return view('jefatura.actualizarContraseña');
     }// fin de formActualizarContrasena
-
+    /**
+     * Descarga un archivo seleccionado al dispositivo fisico
+     * @param Request $request 
+     * @return file
+     */
     public function descargarArchivo(Request $request){
         $headers = ['Content-Type: application/pdf'];
         return response()->download(storage_path("app/public/".$request->archivo,$request->archivo, $headers));
     }// fin de descargarArchivo
-
+    /**
+     * Envia un archivo al navegador para ser previsualizado
+     * @param Request $request 
+     * @return file
+     */
     protected function verArchivo(Request $request){
       return response()->file(storage_path("app/public/".$request->archivo));
     }//fin de verArchivo
-
+    /**
+     * Verifica en el sistema las clausuras o notificaciones que han pasado el mes de revision
+     * para ser enviadas como una alerta de inspeccion a los usuarios
+     * @param type $id 
+     * @return type
+     */
     public function lista_clausuras_notificaciones($id){
          $fecha = date('Y-m-j');
          $clausura_notificacion=Clausura_notificacion::all()->where('estado','=',1)->where('lista','=',$id)->where('fecha_revicion','<',$fecha);
         return view('jefatura.listaNotificaciones')->with(['clausura_notificacion'=>$clausura_notificacion]);
     }// fin de lista_clausuras_notificaciones
-
+    /**
+     * Genera a partir de una fecha dada, una nueva fecha que es un mes mayor que la dada
+     * @param String $fecha 
+     * @return String
+     */
     public function sumarMes($fecha){
-        // $fecha = date('Y-m-j');
         $valores = explode ("-", $fecha); 
         $diaPrimera    = $valores[2];  
         $mesPrimera  = $valores[1];  
         $anyoPrimera   = $valores[0]; 
-        // return implode("-", $valores);         
-         // $fecha = date('Y-m-j');
-$nuevafecha = strtotime ( '+1 month' , strtotime ( implode("-", $valores) ) ) ;
-$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+        $nuevafecha = strtotime ( '+1 month' , strtotime ( implode("-", $valores) ) ) ;
+        $nuevafecha = date ( 'Y-m-j' , $nuevafecha );
         return $nuevafecha;
     }// fin de sumar mes
 }

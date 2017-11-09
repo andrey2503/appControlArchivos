@@ -3,7 +3,11 @@
 @section('content')
   @include('jefatura.menuNavegacion')
 <div class="container row col-md-12 contenedor-usuario">
-  
+          @if(session()->has('message'))
+                      <div class="alert alert-success">
+                          {{ session()->get('message') }}
+                      </div>
+          @endif
 
           <!-- tabla principal de usuarios -->
           @if($permiso)
@@ -17,24 +21,26 @@
               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                   <th>Documento</th>
-                  <th>Tipo</th>
-                  <th>Fecha subida</th>
+                  <th>Fecha Inicio</th>
+                  <th>Fecha Inspeccion</th>
+                  <th>Estado</th>
                   <th>Accion</th>
                 </thead>
                 <tbody>
                  @if(isset($archivos))
                     @foreach($archivos as $a)
                       <tr>
-                        <td>  {{ $a->ruta_archivo}}  </td>
-                        <td>  {{ $a->tipo_id}} </td>
-                        <td>  {{ $a->created_at}} </td>
+                        <td>  {{ $a->rutaArchivo}}  </td>
+                        <td>  {{ $a->fecha_inicio}} </td>
+                        <td>  {{ $a->fecha_revicion}} </td>
+                        <td>  {{ $a->estado}} </td>
                         <td>
                           <form style="float: left;" action="{{ url('jefat/verArchivo') }}" method="get" id="dosform_{{ $a->id }}">
-                          <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}">
+                          <input type="hidden" name="archivo" value="{{$a->rutaArchivo}}">
                          <button  onclick="verArchivo('{{$a->id}}')" type="submit" class="btn btn-info"> ver </button>
                           </form>
                         <form style="float: right;" action="{{ url('jefat/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
-                            <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}"/>
+                            <input type="hidden" name="archivo" value="{{$a->rutaArchivo}}"/>
                             <button type="submit" class="btn btn-success"> descargar </button>
                         </form>
                         </td>

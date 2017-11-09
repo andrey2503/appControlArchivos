@@ -14,7 +14,7 @@
       </div><!-- /.box-header -->
       <form  role="form"   method="post"  action="{{ url('admin/nuevoUsuario') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
-      <div class="box-body">
+        <div class="box-body">
             <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input type="text" class="form-control" name="nombre" placeholder="Nombre">

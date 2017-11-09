@@ -8,34 +8,24 @@ use App\User;
 class Administradores extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * Muentra una vista con todos los usuarios del sistema.
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
         $usuarios= User::all();
         return view('administrador.index')->with(['usuarios'=>$usuarios]);
     }
-
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra un formulario para la creacion de nuevos usuarios
+     * @return retorna una vista
      */
-    public function create()
-    {
-        //
-    }
-
     public function nuevoUsuario(){
         return view("administrador.nuevoUsuario");
     }
-
     /**
-     * Store a newly created resource in storage.
-     *
+     * Valida los datos enviados desde el formulario de nuevos usuarios y crear un nuevo usuario en el sistema
+     * y devuelve la vista con un mensaje de usuario creado existosamente.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -65,21 +55,8 @@ class Administradores extends Controller
             back()->withErrors(['errorUsuario'=>'Error al crear usuario']);
         }
     }
-
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
+     * Muestra un formulario para editar un usuario en especifico
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -90,16 +67,12 @@ class Administradores extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
+     * Actualiza los datos de un usuario especifico
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        //
-         //
         $this->validate($request,[
             'nombre'=>'required',
             'mail'=>'required',
@@ -107,11 +80,9 @@ class Administradores extends Controller
             'contrasena'=>'required',
             'estado'=>'required',
             ]);
-
-         $user = User::find($request->id);
+        $user = User::find($request->id);
         $user->name=$request->nombre;
         $user->email = $request->mail;
-        // $user->user = $request->usuario;
         $user->idrol = $request->idrol;
         if($user->password!=$request->contrasena){
             $contrasena=$request->contrasena;
@@ -120,21 +91,10 @@ class Administradores extends Controller
         $user->state=$request->estado;
 
         if($user->save()){
-            return redirect('/');
+            return redirect()->back()->with('message','Usuario '.$request->usuario.' actualizado correctamente');
         }else{
             return redirect('/');
         }
         // dd($request);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

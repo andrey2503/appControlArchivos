@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
-  
+                  @if(session()->has('message'))
+                      <div class="alert alert-success">
+                          {{ session()->get('message') }}
+                      </div>
+                  @endif
  <form action="{{ url('jefat/administrarDistritos')}}" method="post">
  {{ csrf_field() }}
           <!-- tabla principal de usuarios -->

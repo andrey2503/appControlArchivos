@@ -10,42 +10,27 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('login');
-// });
-
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
   Route::get('/out', 'Auth\AuthController@getLogout');
 
   //rutas accessibles slo si el usuario no se ha logueado
-
-
-
-  // Route::get('/home', 'Administradores@index');
 //rutas accessibles slo si el usuario no se ha logueado
   Route::group(['middleware' => 'guest'], function () {
   Route::get('/', 'Auth\AuthController@getLogin');
   Route::post('login', ['as' =>'login', 'uses' => 'Auth\AuthController@postLogin']);
 });
-
-
 //rutas accessibles solo si el usuario administrador de usuarios y ha ingresado al sistema
 Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], function () {
-  // Route::get('/home','Administradores@index');
   Route::get('/','Administradores@index');
   Route::get('/nuevoUsuario','Administradores@nuevoUsuario');
   Route::post('/nuevoUsuario','Administradores@store');
   Route::get('/modificarUsuario/{id}','Administradores@edit');
   Route::post('/modificarUsuario','Administradores@update');
 });
-
-
  //rutas accessibles solo si el usuario jefatura de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','jefatura'],'prefix'=>'jefat'], function () {
-    // Route::get('/home','Jefaturas@index');
     Route::get('/','Jefaturas@listaDistritos');
     Route::get('/nuevoExpediente','Jefaturas@vistaCrearExpediente');
     Route::post('/nuevoExpediente','Jefaturas@nuevoExpediente');
@@ -66,18 +51,9 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/descargarArchivo','Jefaturas@descargarArchivo');
     Route::get('/verArchivo','Jefaturas@verArchivo');
     Route::get('/verNotificaciones/{id}','Jefaturas@lista_clausuras_notificaciones');
-
     });
-
-
-
-
- 
-
   //rutas accessibles solo si el usuario inspector de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','inspector'],'prefix'=>'inspec'], function () {
-    // Route::get('/home','Inspectores@index');
-    // Route::get('/','Inspectores@index');
     Route::get('/','Inspectores@listaDistritos');
     Route::get('/expedientes/{id}','Inspectores@listaExpedientes');
     Route::get('/verExpediente/{id}','Inspectores@detalleExpediente');
@@ -92,10 +68,8 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/buscar','Inspectores@buscar');
     Route::post('/buscar','Inspectores@buscarFiltrado');
     }); 
-
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','publico'],'prefix'=>'public'], function () {
-    // Route::get('/home','Inspectores@index');
     Route::get('/','Publico@listaDistritos');
     Route::get('/expedientes/{id}','Publico@listaExpedientes');
     Route::get('/listaExpedientes','Publico@expedientes');

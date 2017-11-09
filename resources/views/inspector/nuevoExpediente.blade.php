@@ -11,10 +11,10 @@
        {{ csrf_field() }}
       <div class="box-body">
             <div class="form-group">
-                <label for="expediente">Numero finca</label>
-                <input type="number" class="form-control" name="expediente" placeholder="finca">
-                @if($errors->has('expediente'))
-                  <span style="color: red;">{{ $errors->first('expediente') }}</span>
+                <label for="finca">Numero finca</label>
+                <input type="number" class="form-control" name="finca" placeholder="finca">
+                @if($errors->has('finca'))
+                  <span style="color: red;">{{ $errors->first('finca') }}</span>
                 @endif
             </div>
 

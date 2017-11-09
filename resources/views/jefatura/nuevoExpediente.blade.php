@@ -6,15 +6,20 @@
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
                   <h3 class="box-title"> Nuevo Expediente</h3>
+                  @if(session()->has('message'))
+                      <div class="alert alert-success">
+                          {{ session()->get('message') }}
+                      </div>
+                  @endif
       </div><!-- /.box-header -->
       <form  role="form"   method="post"  action="{{ url('jefat/nuevoExpediente') }}" class="form-horizontal form_entrada" >
        {{ csrf_field() }}
       <div class="box-body">
             <div class="form-group">
-                <label for="expediente">Numero finca</label>
-                <input type="number" class="form-control" name="expediente" placeholder="finca">
-                @if($errors->has('expediente'))
-                  <span style="color: red;">{{ $errors->first('expediente') }}</span>
+                <label for="finca">Numero finca</label>
+                <input type="number" class="form-control" name="finca" placeholder="finca">
+                @if($errors->has('finca'))
+                  <span style="color: red;">{{ $errors->first('finca') }}</span>
                 @endif
             </div>
 
