@@ -7,6 +7,7 @@ use App\SubExpediente;
 use App\archivos_expediente;
 use Illuminate\Http\Request;
 use App\User;
+use App\Clausura_notificacion;
 use Hash;
 
 class Publico extends Controller
@@ -62,14 +63,24 @@ class Publico extends Controller
      * @return view
      */
     public function verArchivos($id,$expediente){
-        $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
-        $expedienteID=Expediente::where('finca', '=', $expediente)->first();
-       
-        return view('publico.listadoArchivosSubCarpeta')
-                    ->with(['carpeta'=>$id,
-                        'expediente'=>$expediente,
-                        'archivos'=>$archivos,
-                        'distrito'=>$expedienteID->distrito_id]);
+        if($id!=2){
+            $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
+            $expedienteID=Expediente::where('finca', '=', $expediente)->first();
+            return view('publico.listadoArchivosSubCarpeta')
+                        ->with(['carpeta'=>$id,
+                            'expediente'=>$expediente,
+                            'archivos'=>$archivos,
+                            'distrito'=>$expedienteID->distrito_id]);
+        }else{
+            $archivos=Clausura_notificacion::all()->where('idFinca','=',$expediente)->all();
+            $expedienteID=Expediente::where('finca', '=', $expediente)->first();
+            return view('publico.listadoClausuras')
+                        ->with(['carpeta'=>$id,
+                            'expediente'=>$expediente,
+                            'archivos'=>$archivos,
+                            'distrito'=>$expedienteID->distrito_id]);
+        }
+
     }// fin de verArchivos
     /**
      * Actualiza la contraseña de un usuario verificando su contraseña
@@ -120,4 +131,21 @@ class Publico extends Controller
         $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
         return json_encode($archivos);
     }// fin buscarFiltrado
+    /**
+     * Descarga un archivo seleccionado al dispositivo fisico
+     * @param Request $request 
+     * @return file
+     */
+    public function descargarArchivo(Request $request){
+        $headers = ['Content-Type: application/pdf'];
+        return response()->download(storage_path("app/public/".$request->archivo,$request->archivo, $headers));
+    }// fin de descargarArchivo
+    /**
+     * Envia un archivo al navegador para ser previsualizado
+     * @param Request $request 
+     * @return file
+     */
+    protected function verArchivo(Request $request){
+      return response()->file(storage_path("app/public/".$request->archivo));
+    }//fin de verArchivo
 }

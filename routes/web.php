@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/formActualizarContrasena','Inspectores@formActualizarContrasena');
     Route::get('/buscar','Inspectores@buscar');
     Route::post('/buscar','Inspectores@buscarFiltrado');
+    Route::get('/descargarArchivo','Jefaturas@descargarArchivo');
+    Route::get('/verArchivo','Jefaturas@verArchivo');
     }); 
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','publico'],'prefix'=>'public'], function () {
@@ -79,6 +81,10 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/formActualizarContrasena','Publico@formActualizarContrasena');
     Route::get('/buscar','Publico@buscar');
     Route::post('/buscar','Publico@buscarFiltrado');
+    Route::get('/descargarArchivo','Jefaturas@descargarArchivo');
+    Route::get('/verArchivo','Jefaturas@verArchivo');
+    Route::get('/descargarArchivo','Jefaturas@descargarArchivo');
+    Route::get('/verArchivo','Jefaturas@verArchivo');
     });
 
 

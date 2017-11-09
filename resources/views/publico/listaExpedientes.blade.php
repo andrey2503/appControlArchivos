@@ -1,7 +1,7 @@
 @extends('publico.escritorio')
 
 @section('content')
-   @include('publico.menuNavegacion')
+  @include('publico.menuNavegacion')
 <div class="container row col-md-12 contenedor-usuario">
   
 
@@ -17,18 +17,37 @@
                 </thead>
                 <tbody>
                   @if(isset($expedientes))
-                    @foreach($expedientes as $u)
+                    @foreach($expedientes as $exp)
                       <tr>
-                        <td>{{ $u->finca }}</td>
+                        <td>{{ $exp->finca }}</td>
 
-                         @if($u->estado==1)
-                        <td>Abierto</td>
-                        @elseif($u->estado==0)
-                        <td>Cerrado</td>
+                         @if($exp->estado==1)
+                        <td >
+                        <div class="bg-green" style="text-align: center;width: 30%;height: 30%">
+                          <span class="glyphicon glyphicon-folder-open"></span>
+                        </div>
+                        </td>
+                        @elseif($exp->estado==2)
+                          <td >
+                            <div class="bg-yellow" style="text-align: center;width: 30%;height: 30%">
+                              <span class="glyphicon glyphicon-folder-open"></span>
+                            </div>
+                        </td>
+                        @elseif($exp->estado==3)
+                          <td >
+                            <div class="bg-red" style="text-align: center;width: 30%;height: 30%">
+                              <span class="glyphicon glyphicon-folder-open"></span>
+                            </div>
+                        </td>
+                        @elseif($exp->estado==4)
+                          <td >
+                            <div class="bg-black" style="text-align: center;width: 30%;height: 30%">
+                              <span class="glyphicon glyphicon-folder-open"></span>
+                            </div>
+                        </td>
                         @endif
-                        <td>{{ $u->distrito_id }}</td>
-
-                        <td> <a class="btn btn-warning btn-xs" href="{{ url('public/verExpediente') }}/{{$u->finca}}">Ver expediente</a> </td>
+                        <td>{{ $exp->distrito_id }}</td>
+                        <td> <a class="btn btn-warning btn-xs" href="{{ url('public/verExpediente') }}/{{$exp->finca}}">Ver expediente</a> </td>
                       </tr>
                     @endforeach
                   @endif

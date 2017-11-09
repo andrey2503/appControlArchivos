@@ -9,6 +9,7 @@ use App\SubExpediente;
 use App\archivos_expediente;
 use App\Distribucion_distritos;
 use App\tipo_documento;
+use App\Clausura_notificacion;
 use App\User;
 use Hash;
 use Storage;
@@ -57,22 +58,41 @@ class Inspectores extends Controller
      * @return view
      */
     public function verArchivos($id,$expediente){
-        $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
-        $editar=false;
-        $expedienteID=Expediente::where('finca', '=', $expediente)->first();
-        $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
-        if($permisos!=null){
-            $editar=true;
-        }
+        if($id!=2){
+            $archivos=archivos_expediente::all()->where('carpeta_id', '=', $id)->where('idFinca','=',$expediente)->all();
+            $editar=false;
+            $expedienteID=Expediente::where('finca', '=', $expediente)->first();
+            $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
+            if($permisos!=null){
+                $editar=true;
+            }
 
-        $tipo_documento= tipo_documento::all();
-        return view('inspector.listadoArchivosSubCarpeta')
-                    ->with(['tipo_documento'=>$tipo_documento,
-                        'carpeta'=>$id,
-                        'expediente'=>$expediente,
-                        'archivos'=>$archivos,
-                        'permiso'=>$editar,
-                        'distrito'=>$expedienteID->distrito_id]);
+            $tipo_documento= tipo_documento::all();
+            return view('inspector.listadoArchivosSubCarpeta')
+                        ->with(['tipo_documento'=>$tipo_documento,
+                            'carpeta'=>$id,
+                            'expediente'=>$expediente,
+                            'archivos'=>$archivos,
+                            'permiso'=>$editar,
+                            'distrito'=>$expedienteID->distrito_id]);
+        }else{
+            $archivos=Clausura_notificacion::all()->where('idFinca','=',$expediente)->all();
+            $editar=false;
+            $expedienteID=Expediente::where('finca', '=', $expediente)->first();
+            $permisos=Distribucion_distritos::where('id_distrito ','=', $expedienteID->distrito_id,' and ')->where('id_usuario','=', \Auth::user()->id)->first();
+            if($permisos!=null){
+                $editar=true;
+            }
+
+            $tipo_documento= tipo_documento::all();
+            return view('inspector.listadoClausuras')
+                        ->with(['tipo_documento'=>$tipo_documento,
+                            'carpeta'=>$id,
+                            'expediente'=>$expediente,
+                            'archivos'=>$archivos,
+                            'permiso'=>$editar,
+                            'distrito'=>$expedienteID->distrito_id]);
+        }// fin del else
     }// fin de verArchivos
     /**
      * Valida el tipo de archivo y recibe los datos y el archivo y lo guarda en un disco de laravel
@@ -212,4 +232,21 @@ class Inspectores extends Controller
         $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
         return json_encode($archivos);
     }// fin buscarFiltrado
+    /**
+     * Descarga un archivo seleccionado al dispositivo fisico
+     * @param Request $request 
+     * @return file
+     */
+    public function descargarArchivo(Request $request){
+        $headers = ['Content-Type: application/pdf'];
+        return response()->download(storage_path("app/public/".$request->archivo,$request->archivo, $headers));
+    }// fin de descargarArchivo
+    /**
+     * Envia un archivo al navegador para ser previsualizado
+     * @param Request $request 
+     * @return file
+     */
+    protected function verArchivo(Request $request){
+      return response()->file(storage_path("app/public/".$request->archivo));
+    }//fin de verArchivo
 }// fin de la clase
