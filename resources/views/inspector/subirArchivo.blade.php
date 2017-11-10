@@ -1,8 +1,4 @@
   @if(isset($tipo_documento))
-  <div class="container row" style="margin:15px;">
-    <a class="btn btn-info " href="{{ url('inspec/verExpediente') }}/{{ $expediente }}">
-    <span class="glyphicon glyphicon-circle-arrow-left"></span> regresar</a>
-  </div>
   <form class="form-inline" action="{{ url('inspec/subirArchivo')}}" method="post" enctype="multipart/form-data">
          {{ csrf_field() }}
          <input type="hidden" name="id" value="{{ $carpeta }}">

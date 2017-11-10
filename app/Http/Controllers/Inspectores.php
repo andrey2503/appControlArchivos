@@ -116,7 +116,7 @@ class Inspectores extends Controller
         Storage::disk('public')->put($ruta_archivo,
             file_get_contents($archivo->getRealPath()));
         $archivo_expediente->save();
-        return back();
+        return redirect()->back()->with('message', 'Archivo subido correctamente');
     }// fin de subir archivo
     /**
      * Permite crear nuevos tipos de archivos en las subcarpetas para asocialor a los archivos
@@ -229,8 +229,13 @@ class Inspectores extends Controller
      * @return json respuesta a una peticion ajax
      */
     public function buscarFiltrado(Request $request){
-        $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
-        return json_encode($archivos);
+        if($request->carpeta!=2){
+            $archivos=archivos_expediente::all()->where('carpeta_id', '=',$request->carpeta)->all();
+            return json_encode($archivos);    
+        }else{
+            $archivos=Clausura_notificacion::all();
+            return json_encode($archivos);
+        }
     }// fin buscarFiltrado
     /**
      * Descarga un archivo seleccionado al dispositivo fisico
@@ -246,7 +251,7 @@ class Inspectores extends Controller
      * @param Request $request 
      * @return file
      */
-    protected function verArchivo(Request $request){
-      return response()->file(storage_path("app/public/".$request->archivo));
+    public function verArchivo($file){
+      return response()->file(storage_path("app/public/".$file));
     }//fin de verArchivo
 }// fin de la clase

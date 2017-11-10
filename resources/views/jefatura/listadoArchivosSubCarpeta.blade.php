@@ -29,10 +29,7 @@
                         <td>  {{ $a->tipo_id}} </td>
                         <td>  {{ $a->created_at}} </td>
                         <td>
-                          <form style="float: left;" action="{{ url('jefat/verArchivo') }}" method="get" id="dosform_{{ $a->id }}">
-                          <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}">
-                         <button  onclick="verArchivo('{{$a->id}}')" type="submit" class="btn btn-info"> ver </button>
-                          </form>
+                          <a class="btn btn-info" target="_black" href="{{ url('jefat/verArchivo') }}/{{$a->ruta_archivo}}">Ver archivo</a>
                         <form style="float: right;" action="{{ url('jefat/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
                             <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}"/>
                             <button type="submit" class="btn btn-success"> descargar </button>

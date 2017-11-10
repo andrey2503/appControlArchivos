@@ -3,7 +3,11 @@
 @section('content')
   @include('inspector.menuNavegacion')
 <div class="container row col-md-12 contenedor-usuario">
-  
+          @if(session()->has('message'))
+                      <div class="alert alert-success">
+                          {{ session()->get('message') }}
+                      </div>
+          @endif
 
           <!-- tabla principal de usuarios -->
           @if($permiso)
@@ -31,8 +35,12 @@
                         </td>
                         <td>  {{ $a->tipo_id}} </td>
                         <td>  {{ $a->created_at}} </td>
-                        <td> <a target="_black" href="../../..{{ Storage::url($a->ruta_archivo) }}" class="btn btn-info"> ver </a>
-                        <a href="#"  class="btn btn-success"> descargar </a>
+                        <td>
+                            <a class="btn btn-info" target="_black" href="{{ url('inspec/verArchivo') }}/{{$a->ruta_archivo}}">Ver archivo</a>
+                            <form style="float: right;" action="{{ url('inspec/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
+                                <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}"/>
+                                <button type="submit" class="btn btn-success"> descargar </button>
+                            </form>
                          </td>
                       </tr>
                     @endforeach

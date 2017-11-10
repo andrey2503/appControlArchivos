@@ -22,8 +22,12 @@
                         </td>
                         <td>  {{ $a->tipo_id}} </td>
                         <td>  {{ $a->created_at}} </td>
-                        <td> <a target="_black" href="../../..{{ Storage::url($a->ruta_archivo) }}" class="btn btn-info"> ver </a>
-                        <a href="#"  class="btn btn-success"> descargar </a>
+                        <td> 
+                            <a class="btn btn-info" target="_black" href="{{ url('public/verArchivo') }}/{{$a->ruta_archivo}}">Ver archivo</a>
+                            <form style="float: right;" action="{{ url('public/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
+                                <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}"/>
+                                <button type="submit" class="btn btn-success"> descargar </button>
+                            </form>
                          </td>
                       </tr>
                     @endforeach

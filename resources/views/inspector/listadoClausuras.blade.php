@@ -35,9 +35,7 @@
                         <td>  {{ $a->fecha_revicion}} </td>
                         <td>  {{ $a->estado}} </td>
                         <td>
-                          <form style="float: left;" action="{{ url('inspec/verArchivo') }}" method="get" id="dosform_{{ $a->id }}">
-                          <input type="hidden" name="archivo" value="{{$a->rutaArchivo}}">
-                         <button  onclick="verArchivo('{{$a->id}}')" type="submit" class="btn btn-info"> ver </button>
+                          <a class="btn btn-info" target="_black" href="{{ url('inspec/verArchivo') }}/{{$a->rutaArchivo}}">Ver archivo</a>
                           </form>
                         <form style="float: right;" action="{{ url('inspec/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
                             <input type="hidden" name="archivo" value="{{$a->rutaArchivo}}"/>

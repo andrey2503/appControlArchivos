@@ -50,9 +50,6 @@
     }
 
     function limpiarTabla(){
-      console.log("limpiando tabla");
-      // $('.tabla-dinamica tbody tr').slice(0).remove();
-     
       var table = $('.tabla-dinamica').DataTable();
       table.rows().remove().draw(false);
     }// fin de limpiar tabla
@@ -61,12 +58,15 @@
       limpiarTabla();
           $.each(result, function(valor) {
             var ruta=result[valor].ruta_archivo;
+            if (ruta==null) {
+              ruta=result[valor].rutaArchivo;
+            }
             var botones='<a style="margin-right:5px;" class="btn btn-success btn-xs" href="{{ url("public/verExpediente")}}/'+result[valor].idFinca+'">ver expediente </a>'+
-            '<a target="_black" href="../../public{{ Storage::url('')}}'+ruta+'" class="btn btn-primary btn-xs" > ver archivo</a>'
+            '<a target="_black" href="{{ url('public/verArchivo') }}/'+ruta+'" class="btn btn-primary btn-xs" > ver archivo</a>'
             var tabla = $('#example').DataTable();
              tabla.row.add( [
             result[valor].idFinca,
-            result[valor].ruta_archivo,
+            ruta,
             botones
         ] ).draw( false );
               console.log(result[valor].ruta_archivo);

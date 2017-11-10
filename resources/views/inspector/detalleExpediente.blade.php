@@ -5,12 +5,6 @@
 	@include('jefatura.menuNavegacion')
 	
 <div class="container row col-md-12 contenedor-usuario">
-
-
-<button style="margin: 15px;" type="button" class="btn btn-warning btn-modal-inspeccion pull-right" data-toggle="modal" data-target="#modalNotificacion"><span class="glyphicon glyphicon-plus"></span> Crear carpeta</button>
-
-
-
 <div>
 	<h4> <span class="glyphicon glyphicon-folder-open"></span> {{ $expediente->finca }}</h4>
 	<table class="table table-striped table-bordered" id="tabla-carpetas">
