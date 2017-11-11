@@ -50,37 +50,5 @@
           </div>
 </div>
 
-
-<script type="text/javascript">
-  function descargarArchivo(archivo){
-        // var form=document.getElementById(archivo);
-        var form=$("#form_"+archivo);
-        var url=form.attr('action');
-        var data= form.serialize();
-        $.get(url,data,function(result){
-          console.log(result);
-        },'json').fail(function(e){
-          console.log(e);
-        }); 
-
-  }// fin de desvargarAchivo
-  function verArchivo(archivo){
-    // var form=$("#dosform_"+archivo);
-    // var url=form.attr('action');
-    // alert(url);
-    // var data= form.serialize();
-    //  $.get(url,data,function(result){
-    //       console.log(result.algun);
-    //       console.log(result.ruta);
-    //       window.open(result.ruta);
-
-    //     },'json').fail(function(e){
-    //       console.log(e);
-    //     }); 
-  }// fin de ver archivo
-</script>
-<!-- fin de la seccion script -->
-
-
 @endsection
 

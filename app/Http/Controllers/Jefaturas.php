@@ -61,7 +61,7 @@ class Jefaturas extends Controller
     public function nuevoExpediente(Request $request)
     {
         $this->validate($request,[
-            'finca'=>'required|min:6|unique:expedientes',
+            'finca'=>'required|min:6|max:6|unique:expedientes',
             'distrito'=>'required',]);
         $expediente = new Expediente();
         $expediente->finca = $request->finca;
@@ -210,12 +210,10 @@ class Jefaturas extends Controller
             Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
             if($request->checkbox==1){
                  $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
-                    // dd($notificacion);
                     if($notificacion!=null){
                         $notificacion->estado=0;
                         $notificacion->save();
                     }
-
                      $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
                     if($clausura_notificacion!=null){
                         $clausura_notificacion->estado=0;

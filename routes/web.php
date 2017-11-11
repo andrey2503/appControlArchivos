@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/verExpediente/{id}','Inspectores@detalleExpediente');
     Route::get('/verArchivos/{id}/{expediente}','Inspectores@verArchivos');
     Route::post('/subirArchivo','Inspectores@subirArchivo');
+    Route::post('/subirClausura','Inspectores@subirClausura');
     Route::post('/tipoDocumento','Inspectores@tipoDocumento');
     Route::get('/nuevoExpediente','Inspectores@vistaCrearExpediente');
     Route::post('/nuevoExpediente','Inspectores@nuevoExpediente');

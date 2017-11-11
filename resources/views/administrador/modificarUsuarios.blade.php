@@ -6,6 +6,11 @@
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
                   <h3 class="box-title"> Modificar usuario</h3>
+                  @if(session()->has('message'))
+                      <div class="alert alert-success">
+                          {{ session()->get('message') }}
+                      </div>
+                  @endif
       </div><!-- /.box-header -->
       <form  role="form"   method="post"  action="{{ url('admin/modificarUsuario') }}" class="form-horizontal form_entrada" >
 
@@ -47,15 +52,23 @@
 
 
               <select name="idrol"class="form-control" >
-                @if($usuario->idrol==3)
+                @if($usuario->idrol==4)
+                  <option value="4" selected>Publico</option>
+                  <option value="3" >Inspector</option>
+                  <option value="2" >Jefatura</option>
+                  <option value="1" >Administrador</option>
+                @elseif($usuario->idrol==3)
+                  <option value="4" >Publico</option>
                   <option value="3" selected>Inspector</option>
                   <option value="2" >Jefatura</option>
                   <option value="1" >Administrador</option>
                 @elseif($usuario->idrol==2)
+                  <option value="4" >Publico</option>
                   <option value="3" >Inspector</option>
                   <option value="2" selected>Jefatura</option>
                   <option value="1" >Administrador</option>
                 @elseif($usuario->idrol==1) 
+                  <option value="4" >Publico</option>
                   <option value="3" >Inspector</option>
                   <option value="2" >Jefatura</option>
                   <option value="1" selected>Administrador</option>

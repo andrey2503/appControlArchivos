@@ -18,8 +18,6 @@
   </form>
 </div>
 <div class="container row col-md-12 contenedor-usuario">
-  
-
           <!-- tabla principal de usuarios -->
           <div class="row tabla-usuarios">
             <div class="table-responsive">
@@ -30,7 +28,6 @@
                   <th>Accion</th>
                 </thead>
                 <tbody>
-                  
                 </tbody>
               </table>
             </div>
@@ -38,7 +35,6 @@
 </div>
 @section('scripts')
 <script type="text/javascript">
-  //onsole.log("(-3): "     + cadena.substr(-3));    // '(-3): hij'
     function cargarLista(){
         var form=$("#form_filtro");
         var url= form.attr('action');
@@ -48,13 +44,21 @@
           alert(e);
         }); 
     }
-
+    /**
+     * Limpia la tabla en cada peticion ajax
+     * @return type
+     */
     function limpiarTabla(){
       console.log("limpiando tabla");
       var table = $('.tabla-dinamica').DataTable();
       table.rows().remove().draw(false);
     }// fin de limpiar tabla
-
+    /**
+     * Envia una peticion ajax para traer el listado de archivos asociados
+     * a una carpeta y listarlos en una tabla
+     * @param type result 
+     * @return type
+     */
     function success(result){
       limpiarTabla();
           $.each(result, function(valor) {
@@ -72,13 +76,7 @@
         ] ).draw( false );
               console.log(result[valor].ruta_archivo);
           });
-         
     }// fin de success
-    // , dataType:"json"
-
-
 </script>
-
 @endsection
-
 @endsection

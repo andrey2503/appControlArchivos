@@ -26,6 +26,7 @@ class Publico
     {
         // validacion si el usuario esta activo sino se debe destruir la sesion
         if (Auth::guard($this->auth)->check()) {
+            if(Auth::guard($this->auth)->user()->state==1){
         switch (Auth::guard($this->auth)->user()->idrol) {
           case '1':
             # code...
@@ -56,7 +57,10 @@ class Publico
             return redirect('login');
             break;
         }// fin del switch
-      }// fin del switch
+        }else{
+            return redirect('out');
+        }
+      }// fin del checlout
         return $next($request);
     }// fin del handle
 }
