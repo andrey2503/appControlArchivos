@@ -19,4 +19,11 @@ class Distrito extends Model
     protected $fillable = [
         'id', 'distrito',
     ];
+
+    
+
+    public function expedientes()
+    {
+        return $this->hasMany('App\Expediente','distrito_id');
+    }
 }

@@ -85,6 +85,7 @@ class Jefaturas extends Controller
     {
         $subcarpetas= SubExpediente::all();
         $expediente=Expediente::find($id);
+        dd($expediente->distrito);
         return view('jefatura.detalleExpediente')
                 ->with(['expediente'=>$expediente,
             'subcarpetas'=>$subcarpetas]);

@@ -46,7 +46,7 @@
                             </div>
                         </td>
                         @endif
-                        <td>{{ $exp->distrito_id }}</td>
+                        <td>{{ $exp->distrito->distrito }}</td>
                         <td> <a class="btn btn-warning btn-xs" href="{{ url('public/verExpediente') }}/{{$exp->finca}}">Ver expediente</a> </td>
                       </tr>
                     @endforeach

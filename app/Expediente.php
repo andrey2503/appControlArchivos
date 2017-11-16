@@ -21,5 +21,9 @@ class Expediente extends Model
     protected $fillable = [
         'finca', 'estado', 'user_id','distrito_id',
     ];
+     public function distrito()
+    {
+        return $this->belongsTo('App\Distrito');
+    }
 
 }
