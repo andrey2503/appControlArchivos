@@ -11,23 +11,23 @@
     </div>
    <div class="form-group">
     <label for="fecha">Fecha</label>
-    <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Fecha">
+    <input class="form-control" id="fecha" name="fecha" data-provide="datepicker" data-date-format="yyyy/mm/dd">
     @if($errors->has('fecha'))
                   <span style="color: red;">{{ $errors->first('fecha') }}</span>
     @endif
    </div>
 
     <label class="checkbox-inline">
-      <input  class="checkbox" type="checkbox" id="inlineCheckbox1" value="1" name="checkbox"> Verde
+      <input  class="checkbox" type="checkbox" id="inlineCheckbox1" value="1" name="checkbox">Normal
     </label>
     <label class="checkbox-inline">
-      <input class="checkbox" type="checkbox" id="inlineCheckbox2" value="2"> Amarillo
+      <input class="checkbox" type="checkbox" id="inlineCheckbox2" value="2">Clausura
     </label>
     <label class="checkbox-inline">
-      <input class="checkbox" type="checkbox" id="inlineCheckbox3" value="3"> Rojo
+      <input class="checkbox" type="checkbox" id="inlineCheckbox3" value="3">Notificacion
     </label>
     <label class="checkbox-inline">
-      <input class="checkbox" type="checkbox" id="inlineCheckbox4" value="4"> Naranja
+      <input class="checkbox" type="checkbox" id="inlineCheckbox4" value="4">Traslado
     </label>
 
     

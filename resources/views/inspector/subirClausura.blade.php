@@ -18,16 +18,16 @@
    </div>
 
     <label class="checkbox-inline">
-      <input  class="checkbox" type="checkbox" id="inlineCheckbox1" value="1" name="checkbox"> Verde
+      <input  class="checkbox" type="checkbox" id="inlineCheckbox1" value="1" name="checkbox">Normal
     </label>
     <label class="checkbox-inline">
-      <input class="checkbox" type="checkbox" id="inlineCheckbox2" value="2"> Amarillo
+      <input class="checkbox" type="checkbox" id="inlineCheckbox2" value="2">Clausura
     </label>
     <label class="checkbox-inline">
-      <input class="checkbox" type="checkbox" id="inlineCheckbox3" value="3"> Rojo
+      <input class="checkbox" type="checkbox" id="inlineCheckbox3" value="3">Notificacion
     </label>
     <label class="checkbox-inline">
-      <input class="checkbox" type="checkbox" id="inlineCheckbox4" value="4"> Naranja
+      <input class="checkbox" type="checkbox" id="inlineCheckbox4" value="4">Traslado
     </label>
 
     <button type="submit" class="btn btn-success">Subir</button>

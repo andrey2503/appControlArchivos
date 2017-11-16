@@ -22,7 +22,4 @@ class Expediente extends Model
         'finca', 'estado', 'user_id','distrito_id',
     ];
 
-    public function notificacion(){
-        return $this->belongsTo('App\Notificacion');
-    }// fin de la reacion notificacion
 }
