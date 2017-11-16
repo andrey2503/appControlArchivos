@@ -24,7 +24,7 @@
                         <td>  {{ $a->fecha_revicion}} </td>
                         <td>  {{ $a->estado}} </td>
                         <td>
-                          <a class="btn btn-info" target="_black" href="{{ url('public/verArchivo') }}/{{$a->rutaArchivo}}">Ver archivo</a>
+                          <a class="btn btn-info" target="_black" href="{{ url('public/verArchivo') }}/{{$a->rutaArchivo}}">Ver</a>
                         <form style="float: right;" action="{{ url('public/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
                             <input type="hidden" name="archivo" value="{{$a->rutaArchivo}}"/>
                             <button type="submit" class="btn btn-success"> descargar </button>

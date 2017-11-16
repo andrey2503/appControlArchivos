@@ -2,11 +2,10 @@
 
 @section('content')
 @if(isset($expediente))
-	@include('jefatura.menuNavegacion')
+	@include('inspector.menuNavegacion')
 	
 <div class="container row col-md-12 contenedor-usuario">
 <div>
-	<h4> <span class="glyphicon glyphicon-folder-open"></span> {{ $expediente->finca }}</h4>
 	<table class="table table-striped table-bordered" id="tabla-carpetas">
 		<thead>
 			<th>Carpeta</th>

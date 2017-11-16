@@ -149,8 +149,11 @@ class Inspectores extends Controller
      * @return type
      */
     public function vistaCrearExpediente(){
+        $id_distritos=Distribucion_distritos::all()->where('id_usuario','=', \Auth::user()->id)->all();
         $distritos= Distrito::all();
-        return view('inspector.nuevoExpediente')->with(['distritos'=>$distritos]);
+        return view('inspector.nuevoExpediente')->with([
+            'distritos'=>$distritos,
+            'id_distritos'=>$id_distritos]);
     }//fin de vistaCrearExpediente
     /**
      * Valida y recibe los datos para crear un nuevo expediente o finca en el sistema
@@ -267,112 +270,93 @@ class Inspectores extends Controller
                 'fecha'=>'required',
                 'archivo'=>'required|mimes:jpeg,bmp,png,pdf',
                 ]);
-         
             $archivo= $request->file('archivo');
             $ruta_archivo= time().'_'.$archivo->getClientOriginalName();
-            $tipo_documento= tipo_documento::where('carpeta_id', '=',2)->first();
-            $id_tipo_documento=0;
-            if($tipo_documento===null){
-                $tipo_documento= new tipo_documento();
-                $tipo_documento->tipo="Clausura";
-                $tipo_documento->carpeta_id=2;
-                $tipo_documento->save();
-                $id_tipo_documento=$tipo_documento->id;
-            }
+            $tipo_documento= $request->checkbox;
             Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
             if($request->checkbox==1){
-                 $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
-                    // dd($notificacion);
-                    if($notificacion!=null){
-                        $notificacion->estado=0;
-                        $notificacion->save();
-                    }
+                        $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
+                        if($notificacion!=null){
+                            $notificacion->estado=0;
+                            $notificacion->save();
+                        }
+                         $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
+                        if($clausura_notificacion!=null){
+                            $clausura_notificacion->estado=0;
+                            $clausura_notificacion->save();
+                        }
+                        $clausura_notificacion=new Clausura_notificacion();
+                        $clausura_notificacion->fecha_inicio=$request->fecha;
+                        $clausura_notificacion->fecha_revicion=$request->fecha;
+                        $clausura_notificacion->idFinca=$request->expediente;
+                        $clausura_notificacion->rutaArchivo=$ruta_archivo;
+                        $clausura_notificacion->estado=0;
+                        $clausura_notificacion->tipo_archivo=$request->checkbox;
+                        $clausura_notificacion->lista=1;
+                        $clausura_notificacion->save();
 
+            } else if($request->checkbox==2){
                      $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
+                     $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
                     if($clausura_notificacion!=null){
                         $clausura_notificacion->estado=0;
                         $clausura_notificacion->save();
                     }
-            } else if($request->checkbox==2){
-                 $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
-                 // dd($clausura_notificacion);
-                 if($clausura_notificacion==null){
-                        // crear nueva clausura y cerrar toda las notificaciones
-                    $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
                     if($notificacion!=null){
-                        $notificacion->estado=0;
-                        $notificacion->save();
+                            $notificacion->estado=0;
+                            $notificacion->save();
                     }
                      $clausura_notificacion= new Clausura_notificacion();
                      $clausura_notificacion->fecha_inicio=$request->fecha;
-                     $clausura_notificacion->fecha_revicion=$this->sumarMes($request->fecha);
+                     $clausura_notificacion->fecha_revicion=$this->sumarMes($request->fecha,1);
                      $clausura_notificacion->idFinca=$request->expediente;
                      $clausura_notificacion->rutaArchivo=$ruta_archivo;
                      $clausura_notificacion->estado=1;
-                     $clausura_notificacion->tipo_archivo=2;
+                     $clausura_notificacion->tipo_archivo=$request->checkbox;
                      $clausura_notificacion->lista=1;
                      $clausura_notificacion->save();
-                 }else{
-                    //poner todas las clausuras y notificacione inactivas las que se encontradon en activas
-                    // poner una nueva clausura activa
-                    $clausura_notificacion->estado=0;
-                    $clausura_notificacion->save();
-                    $clausura_notificacion= new Clausura_notificacion();
-                    $clausura_notificacion->fecha_inicio=$request->fecha;
-                    $clausura_notificacion->fecha_revicion=$this->sumarMes($request->fecha);
-                    $clausura_notificacion->idFinca=$request->expediente;
-                    $clausura_notificacion->rutaArchivo=$ruta_archivo;
-                    $clausura_notificacion->estado=1;
-                    $clausura_notificacion->tipo_archivo=2;
-                    $clausura_notificacion->lista=1;
-                    $clausura_notificacion->save();
-                 }
-                 // si es una notificacion
+                                     // si es una notificacion
             }else if($request->checkbox==3){
-                    $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
-                    $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
+                     $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
+                     $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
                     if($clausura_notificacion!=null){
                         $clausura_notificacion->estado=0;
                         $clausura_notificacion->save();
                     }
-                    if($notificacion==null){
-                        //poner la notificacion en lista uno
-                        $clausura_notificacion=new Clausura_notificacion();
-                        $clausura_notificacion->fecha_inicio=$request->fecha;
-                        $clausura_notificacion->fecha_revicion=$this->sumarMes($request->fecha);
-                        $clausura_notificacion->idFinca=$request->expediente;
-                        $clausura_notificacion->rutaArchivo=$ruta_archivo;
-                        $clausura_notificacion->estado=1;
-                        $clausura_notificacion->tipo_archivo=3;
-                        $clausura_notificacion->lista=1;
-                        $clausura_notificacion->save();
-                    }else{
-                        //poner la notificacion que hay en inactiva o 0
-                        $notificacion->estado=0;
-                        $notificacion->save();
-                        // poner la notificacion en lista #2
-                        $clausura_notificacion=new Clausura_notificacion();
-                        $clausura_notificacion->fecha_inicio=$request->fecha;
-                        $clausura_notificacion->fecha_revicion=$this->sumarMes($request->fecha);
-                        $clausura_notificacion->idFinca=$request->expediente;
-                        $clausura_notificacion->rutaArchivo=$ruta_archivo;
-                        $clausura_notificacion->estado=1;
-                        $clausura_notificacion->tipo_archivo=3;
-                        $clausura_notificacion->lista=2;
-                        $clausura_notificacion->save();
+                    if($notificacion!=null){
+                            $notificacion->estado=0;
+                            $notificacion->save();
                     }
+                     $clausura_notificacion= new Clausura_notificacion();
+                     $clausura_notificacion->fecha_inicio=$request->fecha;
+                     $clausura_notificacion->fecha_revicion=$this->sumarMes($request->fecha,2);
+                     $clausura_notificacion->idFinca=$request->expediente;
+                     $clausura_notificacion->rutaArchivo=$ruta_archivo;
+                     $clausura_notificacion->estado=1;
+                     $clausura_notificacion->tipo_archivo=$request->checkbox;
+                     $clausura_notificacion->lista=2;
+                     $clausura_notificacion->save();
             }// fin del if de 3 
             else   if($request->checkbox==4){
                     $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
+                    $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
                     if($notificacion!=null){
                         $notificacion->estado=0;
                         $notificacion->save();
                     }
-                    $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
                     if($clausura_notificacion!=null){
                         $clausura_notificacion->estado=0;
                         $clausura_notificacion->save();
                     }
+                        $clausura_notificacion=new Clausura_notificacion();
+                        $clausura_notificacion->fecha_inicio=$request->fecha;
+                        $clausura_notificacion->fecha_revicion=$request->fecha;
+                        $clausura_notificacion->idFinca=$request->expediente;
+                        $clausura_notificacion->rutaArchivo=$ruta_archivo;
+                        $clausura_notificacion->estado=0;
+                        $clausura_notificacion->tipo_archivo=$request->checkbox;
+                        $clausura_notificacion->lista=1;
+                        $clausura_notificacion->save();
             }
             $expediente = Expediente::where('finca', '=', $request->expediente)->first();
             $expediente->estado=$request->checkbox;
@@ -384,13 +368,24 @@ class Inspectores extends Controller
      * @param String $fecha 
      * @return String
      */
-    public function sumarMes($fecha){
-        $valores = explode ("-", $fecha); 
+    public function sumarMes($fecha,$mes){
+        $valores = explode ("/", $fecha); 
         $diaPrimera    = $valores[2];  
         $mesPrimera  = $valores[1];  
         $anyoPrimera   = $valores[0]; 
-        $nuevafecha = strtotime ( '+1 month' , strtotime ( implode("-", $valores) ) ) ;
+        $nuevafecha = strtotime ( '+'.$mes.' month' , strtotime ( implode("-", $valores) ) ) ;
         $nuevafecha = date ( 'Y-m-j' , $nuevafecha );
         return $nuevafecha;
     }// fin de sumar mes
+    /**
+     * Verifica en el sistema las clausuras o notificaciones que han pasado el mes de revision
+     * para ser enviadas como una alerta de inspeccion a los usuarios
+     * @param type $id 
+     * @return type
+     */
+    public function lista_clausuras_notificaciones($id){
+         $fecha = date('Y-m-j');
+         $clausura_notificacion=Clausura_notificacion::all()->where('estado','=',1)->where('lista','=',$id)->where('fecha_revicion','<',$fecha)->where('tipo_archivo','!=',1)->where('tipo_archivo','!=',4);
+        return view('inspector.listaNotificaciones')->with(['clausura_notificacion'=>$clausura_notificacion]);
+    }// fin de lista_clausuras_notificaciones
 }// fin de la clase

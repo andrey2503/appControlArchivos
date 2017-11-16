@@ -1,4 +1,4 @@
-@extends('jefatura.escritorio')
+@extends('inspector.escritorio')
 
 @section('content')
 <div class="container row col-md-12 contenedor-usuario">
@@ -12,6 +12,7 @@
                   <th>Expediente</th>
                   <th>Tipo</th>
                   <th>Fecha</th>
+                  <th>Archivo</th>
                   <th>Accion</th>
                 </thead>
                 <tbody>
@@ -29,7 +30,10 @@
                             <td>Traslado</td>
                           @endif
                         <td>{{ $cn->fecha_revicion }}</td>
-                        <td> <a class="btn btn-info btn-xs" href="{{ url('jefat/verExpediente') }}/{{$cn->idFinca}}">Ver expediente</a> </td>
+                        <td>{{ $cn->rutaArchivo }}</td>
+                        <td>
+                        <a class="btn btn-success btn-xs" target="_black" href="{{ url('inspec/verArchivo') }}/{{$cn->rutaArchivo}}">Ver</a>
+                         <a class="btn btn-info btn-xs" href="{{ url('inspec/verExpediente') }}/{{$cn->idFinca}}">Ver expediente</a> </td>
                       </tr>
                     @endforeach
                   @endif

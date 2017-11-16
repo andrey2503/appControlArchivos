@@ -198,15 +198,7 @@ class Jefaturas extends Controller
          
             $archivo= $request->file('archivo');
             $ruta_archivo= time().'_'.$archivo->getClientOriginalName();
-            $tipo_documento= tipo_documento::where('carpeta_id', '=',2)->first();
-            $id_tipo_documento=0;
-            if($tipo_documento===null){
-                $tipo_documento= new tipo_documento();
-                $tipo_documento->tipo="Clausura";
-                $tipo_documento->carpeta_id=2;
-                $tipo_documento->save();
-                $id_tipo_documento=$tipo_documento->id;
-            }
+            $tipo_documento= $request->checkbox;
             Storage::disk('public')->put($ruta_archivo,file_get_contents($archivo->getRealPath()));
             if($request->checkbox==1){
                  $notificacion = Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',3)->first();
@@ -219,6 +211,16 @@ class Jefaturas extends Controller
                         $clausura_notificacion->estado=0;
                         $clausura_notificacion->save();
                     }
+                        $clausura_notificacion=new Clausura_notificacion();
+                        $clausura_notificacion->fecha_inicio=$request->fecha;
+                        $clausura_notificacion->fecha_revicion=$request->fecha;
+                        $clausura_notificacion->idFinca=$request->expediente;
+                        $clausura_notificacion->rutaArchivo=$ruta_archivo;
+                        $clausura_notificacion->estado=0;
+                        $clausura_notificacion->tipo_archivo=$request->checkbox;
+                        $clausura_notificacion->lista=1;
+                        $clausura_notificacion->save();
+
             } else if($request->checkbox==2){
                  $clausura_notificacion= Clausura_notificacion::where('idFinca','=',$request->expediente)->where('estado','=',1)->where('tipo_archivo','=',2)->first();
                  // dd($clausura_notificacion);
@@ -299,6 +301,15 @@ class Jefaturas extends Controller
                         $clausura_notificacion->estado=0;
                         $clausura_notificacion->save();
                     }
+                        $clausura_notificacion=new Clausura_notificacion();
+                        $clausura_notificacion->fecha_inicio=$request->fecha;
+                        $clausura_notificacion->fecha_revicion=$request->fecha;
+                        $clausura_notificacion->idFinca=$request->expediente;
+                        $clausura_notificacion->rutaArchivo=$ruta_archivo;
+                        $clausura_notificacion->estado=0;
+                        $clausura_notificacion->tipo_archivo=$request->checkbox;
+                        $clausura_notificacion->lista=1;
+                        $clausura_notificacion->save();
             }
             $expediente = Expediente::where('finca', '=', $request->expediente)->first();
             $expediente->estado=$request->checkbox;
@@ -443,7 +454,7 @@ class Jefaturas extends Controller
      */
     public function lista_clausuras_notificaciones($id){
          $fecha = date('Y-m-j');
-         $clausura_notificacion=Clausura_notificacion::all()->where('estado','=',1)->where('lista','=',$id)->where('fecha_revicion','<',$fecha);
+         $clausura_notificacion=Clausura_notificacion::all()->where('estado','=',1)->where('lista','=',$id)->where('fecha_revicion','<',$fecha)->where('tipo_archivo','!=',1)->where('tipo_archivo','!=',4);
         return view('jefatura.listaNotificaciones')->with(['clausura_notificacion'=>$clausura_notificacion]);
     }// fin de lista_clausuras_notificaciones
     /**

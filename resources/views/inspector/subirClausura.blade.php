@@ -11,7 +11,7 @@
     </div>
    <div class="form-group">
     <label for="fecha">Fecha</label>
-    <input type="date" class="form-control" id="fecha" name="fecha" placeholder="Fecha">
+    <input class="form-control" id="fecha" name="fecha" data-provide="datepicker" data-date-format="yyyy/mm/dd">
     @if($errors->has('fecha'))
                   <span style="color: red;">{{ $errors->first('fecha') }}</span>
     @endif
@@ -30,7 +30,6 @@
       <input class="checkbox" type="checkbox" id="inlineCheckbox4" value="4"> Naranja
     </label>
 
-    
     <button type="submit" class="btn btn-success">Subir</button>
   </form>
 @section('scripts')

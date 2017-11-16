@@ -22,7 +22,11 @@
               <select class="form-control" name="distrito">
             @if(isset($distritos))
               @foreach($distritos as $d)
-                <option value="{{ $d->id }}">{{ $d->distrito }}</option>
+                @foreach($id_distritos as $ids)
+                  @if($ids->id_distrito == $d->id)
+                  <option value="{{ $d->id }}">{{ $d->distrito }}</option>
+                  @endif
+                @endforeach
               @endforeach
             @endif
               </select>

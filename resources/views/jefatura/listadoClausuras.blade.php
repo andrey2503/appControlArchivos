@@ -33,9 +33,13 @@
                         <td>  {{ $a->rutaArchivo}}  </td>
                         <td>  {{ $a->fecha_inicio}} </td>
                         <td>  {{ $a->fecha_revicion}} </td>
-                        <td>  {{ $a->estado}} </td>
+                        @if($a->estado==1)
+                          <td> Activa </td>
+                        @else
+                          <td> Cerrada </td>
+                        @endif
                         <td>
-                        <a class="btn btn-info" target="_black" href="{{ url('jefat/verArchivo') }}/{{$a->rutaArchivo}}">Ver archivo</a>
+                        <a class="btn btn-info" target="_black" href="{{ url('jefat/verArchivo') }}/{{$a->rutaArchivo}}">Ver</a>
                         <form style="float: right;" action="{{ url('jefat/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
                             <input type="hidden" name="archivo" value="{{$a->rutaArchivo}}"/>
                             <button type="submit" class="btn btn-success"> descargar </button>
