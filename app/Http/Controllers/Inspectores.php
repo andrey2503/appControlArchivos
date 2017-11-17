@@ -388,4 +388,17 @@ class Inspectores extends Controller
          $clausura_notificacion=Clausura_notificacion::all()->where('estado','=',1)->where('lista','=',$id)->where('fecha_revicion','<',$fecha)->where('tipo_archivo','!=',1)->where('tipo_archivo','!=',4);
         return view('inspector.listaNotificaciones')->with(['clausura_notificacion'=>$clausura_notificacion]);
     }// fin de lista_clausuras_notificaciones
+    /**
+     * Description
+     * @return type
+     */
+    public function misExpedientes(){
+        $distritosAsignados=Distribucion_distritos::all()->where('id_usuario','=',\Auth::user()->id)->all();
+        $expedientes=[];
+        foreach ($distritosAsignados as $distrito) {
+        $expedientesNuevoDistrito=Expediente::all()->where('distrito_id', '=', $distrito->id_distrito)->all();
+        $expedientes=array_merge($expedientes,$expedientesNuevoDistrito);
+        }
+        return view('inspector.listaExpedientes')->with(['expedientes'=>$expedientes]);
+    }// fin de misExpedientes
 }// fin de la clase

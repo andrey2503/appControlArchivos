@@ -153,13 +153,14 @@
               </a>
             </li>
 
-             <li>
-              <a href="{{ URL::asset('inspec/listaExpedientes') }}">
-                <i class="fa fa-th"></i> <span>Expedientes </span>
-                 <small class="label pull-right bg-green">
-                   <span class="glyphicon glyphicon-plus"></span>
-                 </small>
+             <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-th"></i> <span>Expedientes</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="{{ URL::asset('inspec/misExpedientes') }}"><i class="fa fa-circle-o"></i> Asignados</a></li>
+                <li><a href="{{ URL::asset('inspec/listaExpedientes') }}"><i class="fa fa-circle-o"></i> Todos</a></li>
+              </ul>
             </li>
             
             <li>

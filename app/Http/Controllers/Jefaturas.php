@@ -444,4 +444,17 @@ class Jefaturas extends Controller
         $nuevafecha = date ( 'Y-m-j' , $nuevafecha );
         return $nuevafecha;
     }// fin de sumar mes
+    /**
+     * Description
+     * @return type
+     */
+    public function misExpedientes(){
+        $distritosAsignados=Distribucion_distritos::all()->where('id_usuario','=',\Auth::user()->id)->all();
+        $expedientes=[];
+        foreach ($distritosAsignados as $distrito) {
+        $expedientesNuevoDistrito=Expediente::all()->where('distrito_id', '=', $distrito->id_distrito)->all();
+        $expedientes=array_merge($expedientes,$expedientesNuevoDistrito);
+        }
+        return view('jefatura.listaExpedientes')->with(['expedientes'=>$expedientes]);
+    }// fin de misExpedientes
 }
