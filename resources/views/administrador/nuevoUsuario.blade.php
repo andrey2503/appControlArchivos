@@ -40,7 +40,7 @@
               </div>
 
               <div class="form-group">
-                <label for="contrasena">Password</label>
+                <label for="contrasena">Contraseña</label>
                 <input type="password" class="form-control" name="contrasena" placeholder="Password">
                 @if($errors->has('contrasena'))
                   <span style="color: red;">{{ $errors->first('contrasena') }}</span>
@@ -50,7 +50,7 @@
 
               <select name="idrol"class="form-control">
                   <option value="5">Contraloria</option>
-                  <option value="4">Publico</option>
+                  <option value="4">Público</option>
                   <option value="3">Inspector</option>
                   <option value="2">Jefatura</option>
                   <option value="1">Administrador</option>

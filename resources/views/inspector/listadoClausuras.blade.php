@@ -22,9 +22,9 @@
                 <thead>
                   <th>Documento</th>
                   <th>Fecha Inicio</th>
-                  <th>Fecha Inspeccion</th>
+                  <th>Fecha Inspección</th>
                   <th>Estado</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                  @if(isset($archivos))
@@ -39,7 +39,7 @@
                           <td> Cerrada </td>
                         @endif
                         <td>
-                          <a class="btn btn-info" target="_black" href="{{ url('inspec/verArchivo') }}/{{$a->rutaArchivo}}">Ver</a>
+                          <a class="btn btn-info" target="_black" href="{{ url('inspec/verArchivo') }}/{{$a->rutaArchivo}}">ver</a>
                           </form>
                         <form style="float: right;" action="{{ url('inspec/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
                             <input type="hidden" name="archivo" value="{{$a->rutaArchivo}}"/>

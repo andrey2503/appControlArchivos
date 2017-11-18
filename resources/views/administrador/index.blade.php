@@ -14,7 +14,7 @@
                   <th>Email</th>
                   <th>Rol</th>
                   <th>Estado</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                   @if(isset($usuarios))
@@ -31,7 +31,7 @@
                         @elseif($u->idrol==3)
                         <td>Inspector</td>
                         @elseif($u->idrol==4)
-                        <td>Publico</td>
+                        <td>Público</td>
                         @elseif($u->idrol==5)
                         <td>Contraloria</td>
                         @endif

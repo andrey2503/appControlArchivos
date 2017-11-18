@@ -51,7 +51,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Plu</b>SIS</span>
+          <span class="logo-lg"><b>Na</b>Me</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
          <nav class="navbar navbar-static-top" role="navigation">
@@ -165,7 +165,7 @@
             
             <li>
               <a href="{{ URL::asset('inspec/verNotificaciones/1') }}">
-                <i class="fa fa-th"></i> <span>Primera revicion </span>
+                <i class="fa fa-th"></i> <span>Primera revisión </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-list-alt"></span>
                  </small>
@@ -174,7 +174,7 @@
 
             <li>
               <a href="{{ URL::asset('inspec/verNotificaciones/2') }}">
-                <i class="fa fa-th"></i> <span>Segunda revicion </span>
+                <i class="fa fa-th"></i> <span>Segunda revisión </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-list-alt"></span>
                  </small>
@@ -183,7 +183,7 @@
 
             <li>
               <a href="{{ URL::asset('/out') }}">
-                <i class="fa fa-th"></i> <span>cerrar sesion</span>
+                <i class="fa fa-th"></i> <span>cerrar sesión</span>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>
                  </small>

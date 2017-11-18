@@ -15,7 +15,7 @@
 	<table class="table table-striped table-bordered" id="tabla-carpetas">
 		<thead>
 			<th>Carpeta</th>
-			<th>Accion</th>
+			<th>Acción</th>
 		</thead>
 		<tbody>
 		@if(isset($subcarpetas))

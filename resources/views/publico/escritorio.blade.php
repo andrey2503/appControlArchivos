@@ -51,7 +51,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>LT</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Plu</b>SIS</span>
+          <span class="logo-lg"><b>Na</b>Me</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -94,7 +94,7 @@
                   <li class="user-header" style="height: 75px;">
                     <p>
                      {{ Auth::user()->name }}
-                      <small>Publico</small>
+                      <small>Público</small>
                     </p>
                   </li>
                   <!-- Menu Body -->
@@ -155,7 +155,7 @@
 
             <li>
               <a href="{{ URL::asset('/out') }}">
-                <i class="fa fa-th"></i> <span>cerrar sesion</span>
+                <i class="fa fa-th"></i> <span>cerrar sesión</span>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>
                  </small>

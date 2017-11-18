@@ -22,9 +22,9 @@
                 <thead>
                   <th>Documento</th>
                   <th>Fecha Inicio</th>
-                  <th>Fecha Inspeccion</th>
+                  <th>Fecha Inspección</th>
                   <th>Estado</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                  @if(isset($archivos))

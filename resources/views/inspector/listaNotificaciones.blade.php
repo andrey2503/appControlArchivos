@@ -13,7 +13,7 @@
                   <th>Tipo</th>
                   <th>Fecha</th>
                   <th>Archivo</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                   @if(isset($clausura_notificacion))
@@ -25,7 +25,7 @@
                           @elseif($cn->tipo_archivo==2)
                             <td>Clausura</td>
                           @elseif($cn->tipo_archivo==3)
-                            <td>Notificacion</td>
+                            <td>Notificación</td>
                           @elseif($cn->tipo_archivo==4)
                             <td>Traslado</td>
                           @endif

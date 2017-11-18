@@ -5,7 +5,7 @@
 <div class="container row col-md-8 col-md-offset-2 ">
   <div class=" col-md-12 box box-primary">
     <div class="box-header with-border">
-                  <h3 class="box-title"> Actualziar contraseña</h3>
+                  <h3 class="box-title"> Actualizar contraseña</h3>
                   @if(session()->has('message'))
                       <div class="alert alert-success">
                           {{ session()->get('message') }}

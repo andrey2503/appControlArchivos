@@ -11,7 +11,7 @@
                 <thead>
                   <th>ID</th>
                   <th>Distrito</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                   @if(isset($distritos))

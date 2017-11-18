@@ -25,7 +25,7 @@
                 <thead>
                   <th>Expediente</th>
                   <th>Archivo</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                 </tbody>

@@ -43,7 +43,7 @@
               </div>
 
               <div class="form-group">
-                <label for="contrasena">Password</label>
+                <label for="contrasena">Contraseña</label>
                 <input type="password" class="form-control" name="contrasena" value="{{ $usuario->password }}">
                 @if($errors->has('contrasena'))
                   <span style="color: red;">{{ $errors->first('contrasena') }}</span>
@@ -53,22 +53,22 @@
 
               <select name="idrol"class="form-control" >
                 @if($usuario->idrol==4)
-                  <option value="4" selected>Publico</option>
+                  <option value="4" selected>Público</option>
                   <option value="3" >Inspector</option>
                   <option value="2" >Jefatura</option>
                   <option value="1" >Administrador</option>
                 @elseif($usuario->idrol==3)
-                  <option value="4" >Publico</option>
+                  <option value="4" >Público</option>
                   <option value="3" selected>Inspector</option>
                   <option value="2" >Jefatura</option>
                   <option value="1" >Administrador</option>
                 @elseif($usuario->idrol==2)
-                  <option value="4" >Publico</option>
+                  <option value="4" >Público</option>
                   <option value="3" >Inspector</option>
                   <option value="2" selected>Jefatura</option>
                   <option value="1" >Administrador</option>
                 @elseif($usuario->idrol==1) 
-                  <option value="4" >Publico</option>
+                  <option value="4" >Público</option>
                   <option value="3" >Inspector</option>
                   <option value="2" >Jefatura</option>
                   <option value="1" selected>Administrador</option>

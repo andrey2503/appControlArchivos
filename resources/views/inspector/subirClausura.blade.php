@@ -24,7 +24,7 @@
       <input class="checkbox" type="checkbox" id="inlineCheckbox2" value="2">Clausura
     </label>
     <label class="checkbox-inline">
-      <input class="checkbox" type="checkbox" id="inlineCheckbox3" value="3">Notificacion
+      <input class="checkbox" type="checkbox" id="inlineCheckbox3" value="3">Notificación
     </label>
     <label class="checkbox-inline">
       <input class="checkbox" type="checkbox" id="inlineCheckbox4" value="4">Traslado

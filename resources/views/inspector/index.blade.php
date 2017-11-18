@@ -11,8 +11,8 @@
                 <thead>
                   <th>#Expediente</th>
                   <th>Fecha</th>
-                  <th>Direccion</th>
-                  <th>Accion</th>
+                  <th>Dirección</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                   @if(isset($notificaciones))

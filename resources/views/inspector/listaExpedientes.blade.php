@@ -13,7 +13,7 @@
                   <th>#Expediente</th>
                   <th>Estado</th>
                   <th>Distrito</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                   @if(isset($expedientes))

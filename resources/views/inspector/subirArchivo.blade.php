@@ -36,7 +36,7 @@
         <h4 class="modal-title"></h4>
         <div id="mensajeTipoDiv"  style="display: none;">
           <div  class="alert alert-success" role="alert">
-              <p id="mensajeTipo">Success</p>
+              <p id="mensajeTipo">Éxito</p>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@
                   <th>Expediente</th>
                   <th>Tipo</th>
                   <th>Fecha</th>
-                  <th>Accion</th>
+                  <th>Acción</th>
                 </thead>
                 <tbody>
                   @if(isset($clausura_notificacion))
