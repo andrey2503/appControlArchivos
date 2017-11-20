@@ -25,17 +25,17 @@
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" name="mail" placeholder="Email">
+                <input type="email" class="form-control" name="email" placeholder="Email">
                 @if($errors->has('mail'))
                   <span style="color: red;">{{ $errors->first('mail') }}</span>
                 @endif
               </div>
 
                <div class="form-group">
-                <label for="usuario">usuario</label>
-                <input type="text" class="form-control" name="usuario" placeholder="usuario">
-                @if($errors->has('usuario'))
-                  <span style="color: red;">{{ $errors->first('usuario') }}</span>
+                <label for="user">usuario</label>
+                <input type="text" class="form-control" name="user" placeholder="usuario">
+                @if($errors->has('user'))
+                  <span style="color: red;">{{ $errors->first('user') }}</span>
                 @endif
               </div>
 
@@ -49,7 +49,6 @@
 
 
               <select name="idrol"class="form-control">
-                  <option value="5">Contraloria</option>
                   <option value="4">Público</option>
                   <option value="3">Inspector</option>
                   <option value="2">Jefatura</option>

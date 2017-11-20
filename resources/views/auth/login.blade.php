@@ -47,7 +47,7 @@
                 @endif
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="password" placeholder="Contransena">
+            <input type="password" class="form-control" name="password" placeholder="Contranseña">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 @if($errors->has('password'))
                   <span style="color: red;">{{ $errors->first('password') }}</span>

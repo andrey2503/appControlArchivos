@@ -19,6 +19,7 @@ Auth::routes();
 //rutas accessibles slo si el usuario no se ha logueado
   Route::group(['middleware' => 'guest'], function () {
   Route::get('/', 'Auth\AuthController@getLogin');
+  Route::get('/instalacion', 'Auth\AuthController@instalacion');
   Route::post('login', ['as' =>'login', 'uses' => 'Auth\AuthController@postLogin']);
 });
 //rutas accessibles solo si el usuario administrador de usuarios y ha ingresado al sistema
@@ -36,7 +37,6 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::post('/nuevoExpediente','Jefaturas@nuevoExpediente');
     Route::get('/listaExpedientes','Jefaturas@expedientes');
     Route::get('/verExpediente/{id}','Jefaturas@detalleExpediente');
-    Route::post('/crearSubcarpeta','Jefaturas@crearSubcarpeta');
     Route::get('/expedientes/{id}','Jefaturas@listaExpedientes');
     Route::get('/verArchivos/{id}/{expediente}','Jefaturas@verArchivos');
     Route::post('/subirArchivo','Jefaturas@subirArchivo');

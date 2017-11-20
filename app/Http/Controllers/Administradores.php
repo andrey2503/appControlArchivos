@@ -34,8 +34,8 @@ class Administradores extends Controller
         //
         $this->validate($request,[
             'nombre'=>'required',
-            'mail'=>'required',
-            'usuario'=>'required',
+            'email'=>'required|unique:users',
+            'user'=>'required|unique:users',
             'idrol'=>'required',
             'contrasena'=>'required',
             'estado'=>'required',
@@ -43,14 +43,14 @@ class Administradores extends Controller
 
          $user = new User();
         $user->name=$request->nombre;
-        $user->email = $request->mail;
-        $user->user = $request->usuario;
+        $user->email = $request->email;
+        $user->user = $request->user;
         $user->idrol = $request->idrol;
         $contrasena=$request->contrasena;
         $user->password = Hash::make($contrasena);
         $user->state=$request->estado;
       if($user->save()){
-            return redirect()->back()->with('message','Usuario '.$request->usuario.' creado correctamente');
+            return redirect()->back()->with('message','Usuario '.$request->user.' creado correctamente');
         }else{
             back()->withErrors(['errorUsuario'=>'Error al crear usuario']);
         }

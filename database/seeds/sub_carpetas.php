@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\SubExpediente;
-use App\tipo_documento;
 class sub_carpetas extends Seeder
 {
     /**
@@ -13,9 +12,9 @@ class sub_carpetas extends Seeder
     public function run()
     {
         //
-        $carpetas=array('Control construcción',
+        $carpetas=array('Control constructivo',
     				'Clausuras y notificaciones',
-    				'Orden inspecciones'
+    				'Orden de inspecciones'
     				);
     	foreach ($carpetas as  $c) {
     		# code...
