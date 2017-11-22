@@ -1,4 +1,4 @@
-@extends('inspector.escritorio')
+@extends('publico.escritorio')
 
 @section('content')
 <div class="container row col-md-12 " style="padding: 15px;">

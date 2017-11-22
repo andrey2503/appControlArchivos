@@ -172,9 +172,9 @@ class Inspectores extends Controller
         $idUsuario=\Auth::user()->id;
         $expediente->user_id=$idUsuario;
         if($expediente->save()){
-            return redirect('/');
+            return redirect()->back()->with('message', 'Expediente '.$request->finca.' creado correctamente');
         }else{
-             return redirect('/');
+             return back()->withErrors(['errorFinca'=>'No se pudo crear']);
         }
     }// fin de nuevoExpediente
     /**

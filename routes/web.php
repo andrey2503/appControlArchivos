@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/descargarArchivo','Inspectores@descargarArchivo');
     Route::get('/verArchivo/{id}','Inspectores@verArchivo');
     Route::get('/verNotificaciones/{id}','Inspectores@lista_clausuras_notificaciones');
-    Route::get('/misExpedientes','Jefaturas@misExpedientes');
+    Route::get('/misExpedientes','Inspectores@misExpedientes');
     }); 
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','publico'],'prefix'=>'public'], function () {
@@ -85,10 +85,10 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/formActualizarContrasena','Publico@formActualizarContrasena');
     Route::get('/buscar','Publico@buscar');
     Route::post('/buscar','Publico@buscarFiltrado');
-    Route::get('/descargarArchivo','Jefaturas@descargarArchivo');
-    Route::get('/verArchivo','Jefaturas@verArchivo');
-    Route::get('/descargarArchivo','Jefaturas@descargarArchivo');
-    Route::get('/verArchivo/{id}','Jefaturas@verArchivo');
+    Route::get('/descargarArchivo','Publico@descargarArchivo');
+    Route::get('/verArchivo','Publico@verArchivo');
+    Route::get('/descargarArchivo','Publico@descargarArchivo');
+    Route::get('/verArchivo/{id}','Publico@verArchivo');
     });
 
 
