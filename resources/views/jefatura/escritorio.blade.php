@@ -190,6 +190,15 @@
               </a>
             </li>
 
+             <li>
+              <a href="{{ URL::asset('jefat/reportes') }}">
+                <i class="fa fa-th"></i> <span>Reportes </span>
+                 <small class="label pull-right bg-green">
+                   <span class="glyphicon glyphicon-list-alt"></span>
+                 </small>
+              </a>
+            </li>
+
             <li>
               <a href="{{ URL::asset('/out') }}">
                 <i class="fa fa-th"></i> <span>cerrar sesión</span>

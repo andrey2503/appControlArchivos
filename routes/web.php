@@ -52,6 +52,9 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/verNotificaciones/{id}','Jefaturas@lista_clausuras_notificaciones');
     Route::get('/verArchivo/{id}','Jefaturas@verArchivo');
     Route::get('/misExpedientes','Jefaturas@misExpedientes');
+    Route::post('/eliminar','Jefaturas@eliminarArchivo');
+    Route::get('/reportes','Jefaturas@getVistaReportes');
+    Route::get('/reporte/{id}','Jefaturas@reporte');
     });
   //rutas accessibles solo si el usuario inspector de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','inspector'],'prefix'=>'inspec'], function () {
