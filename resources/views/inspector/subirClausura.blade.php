@@ -11,7 +11,7 @@
     </div>
    <div class="form-group">
     <label for="fecha">Fecha</label>
-    <input class="form-control" id="fecha" name="fecha" data-provide="datepicker" data-date-format="yyyy/mm/dd">
+    <input placeholder="yyyy/mm/dd" class="form-control" id="fecha" name="fecha" data-provide="datepicker" data-date-format="yyyy/mm/dd">
     @if($errors->has('fecha'))
                   <span style="color: red;">{{ $errors->first('fecha') }}</span>
     @endif

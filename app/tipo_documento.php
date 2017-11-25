@@ -18,4 +18,9 @@ class tipo_documento extends Model
         'id', 'tipo',
     ];
 
+    public function archivo()
+    {
+        return $this->hasMany('App\archivo_expediente','id');
+    }
+
 }

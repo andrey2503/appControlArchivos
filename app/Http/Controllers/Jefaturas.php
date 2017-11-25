@@ -483,35 +483,35 @@ class Jefaturas extends Controller
         switch ($id) {
         case '0':
             $expedientes=Expediente::all();
-            $view= view('jefatura.pdfReporte')->with(['expedientes'=>$expedientes]);
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
             $pdf=\App::make('dompdf.wrapper');
             $pdf->loadhtml($view);
             return $pdf->stream();
             break;
         case '1':
              $expedientes=Expediente::all()->where('estado','=',$id)->all();
-            $view= view('jefatura.pdfReporte')->with(['expedientes'=>$expedientes]);
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
             $pdf=\App::make('dompdf.wrapper');
             $pdf->loadhtml($view);
             return $pdf->stream();
             break;
         case '2':
             $expedientes=Expediente::all()->where('estado','=',$id)->all();
-            $view= view('jefatura.pdfReporte')->with(['expedientes'=>$expedientes]);
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
             $pdf=\App::make('dompdf.wrapper');
             $pdf->loadhtml($view);
             return $pdf->stream();
             break;
         case '3':
             $expedientes=Expediente::all()->where('estado','=',$id)->all();
-            $view= view('jefatura.pdfReporte')->with(['expedientes'=>$expedientes]);
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
             $pdf=\App::make('dompdf.wrapper');
             $pdf->loadhtml($view);
             return $pdf->stream();
             break;
         case '4':
             $expedientes=Expediente::all()->where('estado','=',$id)->all();
-            $view= view('jefatura.pdfReporte')->with(['expedientes'=>$expedientes]);
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
             $pdf=\App::make('dompdf.wrapper');
             $pdf->loadhtml($view);
             return $pdf->stream();

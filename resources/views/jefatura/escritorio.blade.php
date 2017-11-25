@@ -137,7 +137,7 @@
             
             <li>
               <a href="{{ URL::asset('jefat/buscar') }}">
-                <i class="fa fa-th"></i> <span>Buscar</span>
+                <i class="fa fa-search" aria-hidden="true"></i> <span>Buscar</span>
                  <small class="label pull-right bg-blue">
                    <span class="glyphicon glyphicon-search"></span>
                  </small>
@@ -146,26 +146,26 @@
 
              <li>
               <a href="{{ URL::asset('jefat/nuevoExpediente') }}">
-                <i class="fa fa-th"></i> <span>Nuevo Expediente</span>
+                <i class="fa fa-plus-circle"></i> <span>Nuevo Expediente</span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-plus"></span>
                  </small>
               </a>
             </li>
 
-            <li class="active treeview">
+            <li class=" treeview">
               <a href="#">
-                <i class="fa fa-th"></i> <span>Expedientes</span> <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-folder-o"></i> <span>Expedientes</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="{{ URL::asset('jefat/misExpedientes') }}"><i class="fa fa-circle-o"></i> Asignados</a></li>
+                <li ><a href="{{ URL::asset('jefat/misExpedientes') }}"><i class="fa fa-circle-o"></i> Asignados</a></li>
                 <li><a href="{{ URL::asset('jefat/listaExpedientes') }}"><i class="fa fa-circle-o"></i> Todos</a></li>
               </ul>
             </li>
 
             <li>
               <a href="{{ URL::asset('jefat/administrarDistritos') }}">
-                <i class="fa fa-th"></i> <span>Administrar distritos </span>
+                <i class="fa fa-code-fork"></i> <span>Administrar distritos </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-list-alt"></span>
                  </small>
@@ -174,7 +174,7 @@
 
             <li>
               <a href="{{ URL::asset('jefat/verNotificaciones/1') }}">
-                <i class="fa fa-th"></i> <span>Primera revisión </span>
+                <i class="fa fa-check-square-o"></i> <span>Primera revisión </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-list-alt"></span>
                  </small>
@@ -183,7 +183,7 @@
 
             <li>
               <a href="{{ URL::asset('jefat/verNotificaciones/2') }}">
-                <i class="fa fa-th"></i> <span>Segunda revisión </span>
+                <i class="fa fa-check-square-o"></i> <span>Segunda revisión </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-list-alt"></span>
                  </small>
@@ -192,7 +192,7 @@
 
              <li>
               <a href="{{ URL::asset('jefat/reportes') }}">
-                <i class="fa fa-th"></i> <span>Reportes </span>
+                <i class="fa fa-cloud-download"></i> <span>Reportes </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-list-alt"></span>
                  </small>
@@ -201,7 +201,7 @@
 
             <li>
               <a href="{{ URL::asset('/out') }}">
-                <i class="fa fa-th"></i> <span>cerrar sesión</span>
+                <i class="fa fa-times-circle"></i> <span>cerrar sesión</span>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>
                  </small>

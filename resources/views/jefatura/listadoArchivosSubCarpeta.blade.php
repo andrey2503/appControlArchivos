@@ -30,21 +30,18 @@
                     @foreach($archivos as $a)
                       <tr>
                         <td>  {{ $a->ruta_archivo}}  </td>
-                        <td>  {{ $a->tipo_id}} </td>
+                        <td>  {{ $a->tipo->tipo}} </td>
                         <td>  {{ $a->created_at}} </td>
                         <td>
-                        <div class="row">
-                          <a class="col-md-2 btn btn-info " target="_black" href="{{ url('jefat/verArchivo') }}/{{$a->ruta_archivo}}">Ver</a>
-                          <form class="col-md-3 " action="{{ url('jefat/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
-                            <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}"/>
-                            <button type="submit" class="btn btn-success "> descargar </button>
-                        </form>
-                        @if($permiso)
-                        <button type="button" class="btn btn-danger col-md-3" onclick="confirmarEliminar('{{$a->id }}','{{$a->ruta_archivo}}')" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
-
-                          
-                        @endif
-                        
+                        <div class="row" style="margin: 0;">
+                                <a class="col-md-2 btn btn-info" target="_black" href="{{ url('jefat/verArchivo') }}/{{$a->ruta_archivo}}">Ver</a>
+                                <form class="col-md-4" action="{{ url('jefat/descargarArchivo') }}" method="get" id="form_{{ $a->id }}">
+                                  <input type="hidden" name="archivo" value="{{$a->ruta_archivo}}"/>
+                                  <button type="submit" class="btn btn-success "> descargar </button>
+                              </form>
+                              @if($permiso)
+                              <button type="button" class="btn btn-danger col-md-3" onclick="confirmarEliminar('{{$a->id }}','{{$a->ruta_archivo}}')" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+                              @endif
                         </div>
                         </td>
                       </tr>
@@ -58,8 +55,6 @@
 
 
 
-
-<!-- Button trigger modal -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,7 +86,6 @@
 </div>
 <script type="text/javascript">
   function confirmarEliminar(id,archivo){
-    alert("eliminar "+id);
     $('#eliminarArchivoRuta').val(archivo);
     $('#eliminarArchivoId').val(id);
   }// fin de confirmar eliminar

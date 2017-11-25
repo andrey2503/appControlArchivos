@@ -76,6 +76,9 @@ Route::group(['middleware' => ['auth','administrador'],'prefix'=>'admin'], funct
     Route::get('/verArchivo/{id}','Inspectores@verArchivo');
     Route::get('/verNotificaciones/{id}','Inspectores@lista_clausuras_notificaciones');
     Route::get('/misExpedientes','Inspectores@misExpedientes');
+    Route::post('/eliminar','Jefaturas@eliminarArchivo');
+    Route::get('/reportes','Inspectores@getVistaReportes');
+    Route::get('/reporte/{id}','Inspectores@reporte');
     }); 
      //rutas accessibles solo si el usuario publico de usuarios y ha ingresado al sistema
   Route::group(['middleware' => ['auth','publico'],'prefix'=>'public'], function () {

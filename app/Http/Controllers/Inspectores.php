@@ -401,4 +401,67 @@ class Inspectores extends Controller
         }
         return view('inspector.listaExpedientes')->with(['expedientes'=>$expedientes]);
     }// fin de misExpedientes
+    /**
+     * Recibe un id para eliminar un registro de la base de datos y elimina un archivo fisico del sistema
+     * @param Request $request 
+     * @return type
+     */
+    public function eliminarArchivo(Request $request){
+        if($request->carpeta==1){
+            $archivo=archivos_expediente::find($request->id);
+            $archivo->delete();
+        }else if($request->carpeta==2){
+            $archivo=Clausura_notificacion::find($request->id);
+            $archivo->delete();
+        }
+        Storage::disk('public')->delete($request->archivo);
+        return redirect()->back()->with('message', 'Archivo eliminado');
+    }
+     /**
+     * Retorna la vista para seleccionar el tipo de reporte que se desea
+     */
+    public function getVistaReportes(){
+        return view('inspector.reporte');
+    }
+    public function reporte($id){
+
+        switch ($id) {
+        case '0':
+            $expedientes=Expediente::all();
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
+            $pdf=\App::make('dompdf.wrapper');
+            $pdf->loadhtml($view);
+            return $pdf->stream();
+            break;
+        case '1':
+             $expedientes=Expediente::all()->where('estado','=',$id)->all();
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
+            $pdf=\App::make('dompdf.wrapper');
+            $pdf->loadhtml($view);
+            return $pdf->stream();
+            break;
+        case '2':
+            $expedientes=Expediente::all()->where('estado','=',$id)->all();
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
+            $pdf=\App::make('dompdf.wrapper');
+            $pdf->loadhtml($view);
+            return $pdf->stream();
+            break;
+        case '3':
+            $expedientes=Expediente::all()->where('estado','=',$id)->all();
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
+            $pdf=\App::make('dompdf.wrapper');
+            $pdf->loadhtml($view);
+            return $pdf->stream();
+            break;
+        case '4':
+            $expedientes=Expediente::all()->where('estado','=',$id)->all();
+            $view= view('pdfReporte')->with(['expedientes'=>$expedientes]);
+            $pdf=\App::make('dompdf.wrapper');
+            $pdf->loadhtml($view);
+            return $pdf->stream();
+            break;
+        }
+
+    }
 }// fin de la clase
