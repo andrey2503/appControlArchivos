@@ -462,6 +462,37 @@ class Inspectores extends Controller
             return $pdf->stream();
             break;
         }
-
-    }
+    }// fin de los reportes
+    /**
+     * Muestra un formulario para actualizar los datos del usuario
+     * @return view
+     */
+    public function formActualizarDatos(){
+        $usuario = User::find(\Auth::user()->id);
+        return view('inspector.actualizarDatos')->with(['usuario'=>$usuario]);
+    }// fin de formActualizarContrasena
+    /**
+     * Metodo recibe los datos para actualizar el nombre y el correo del usuario
+     * @param Request $request 
+     * @return type
+     */
+    public function actualizarDatos(Request $request){
+         $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            ]);
+        $user= User::find(\Auth::user()->id);
+        if($request->email==$user->email){
+            $user->name=$request->name;
+            $user->save();
+        }else{
+            $this->validate($request,[
+            'email'=>'unique:users',
+            ]);
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->save();
+        }
+        return redirect()->back()->with('message', 'Datos actualizados correctamente');
+    }// fin de actualizarDatos
 }// fin de la clase

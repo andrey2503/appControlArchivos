@@ -99,12 +99,12 @@
                   </li>
                  
                   <!-- Menu Footer-->
-                  <li class="user-footer" style="padding: 25px 10px;">
-                    <div class="">
-                      <a href="#" style="margin-bottom: 10px;" class="btn btn-primary btn-flat col-md-12">Actualizar datos</a>
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="{{ url('inspec/formActualizarContrasena')}}" class="btn btn-default btn-flat">Cambiar contraseña</a>
                     </div>
-                    <div class="">
-                      <a href="{{ url('inspec/formActualizarContrasena')}}" class="btn btn-warning btn-flat col-md-12">Actualizar contraseña</a>
+                    <div class="pull-right">
+                      <a href="{{ url('inspec/formActualizarDatos')}}" class="btn btn-default btn-flat">Cambiar datos</a>
                     </div>
                   </li>
                 </ul>

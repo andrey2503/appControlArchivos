@@ -101,27 +101,17 @@
                       <small>Administrador</small>
                     </p>
                   </li>
-                  <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
-                    </div>
-                  </li>
+                  
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Cambiar contraseña</a>
+                      <a href="{{ url('admin/formActualizarContrasena')}}" class="btn btn-default btn-flat">Cambiar contraseña</a>
                     </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="{{ url('admin/formActualizarDatos')}}" class="btn btn-default btn-flat">Cambiar datos</a>
                     </div>
                   </li>
+                  
                 </ul>
               </li>
             </ul>
@@ -151,7 +141,7 @@
             
              <li>
               <a href="{{ URL::asset('admin/nuevoUsuario') }}">
-                <i class="fa fa-th"></i> <span>Nuevo usuario</span>
+                <i class="fa fa-plus-circle"></i> <span>Nuevo usuario</span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-plus"></span>
                  </small>
@@ -161,7 +151,7 @@
 
             <li>
               <a href="{{ URL::asset('/out') }}">
-                <i class="fa fa-th"></i> <span>cerrar sesión</span>
+                <i class="fa fa-times-circle"></i> <span>cerrar sesión</span>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>
                  </small>
@@ -192,13 +182,7 @@
   
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-     <!--  <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
-        </div>
-        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
-      </footer>
- -->
+    
      
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->

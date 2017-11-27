@@ -98,12 +98,12 @@
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-footer" style="padding: 25px 10px;">
-                    <div class="">
-                      <a href="#" style="margin-bottom: 10px;" class="btn btn-primary btn-flat col-md-12">Actualizar datos</a>
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="{{ url('public/formActualizarContrasena')}}" class="btn btn-default btn-flat">Cambiar contraseña</a>
                     </div>
-                    <div class="">
-                      <a href="{{ url('public/formActualizarContrasena')}}" class="btn btn-warning btn-flat col-md-12">Actualizar contraseña</a>
+                    <div class="pull-right">
+                      <a href="{{ url('public/formActualizarDatos')}}" class="btn btn-default btn-flat">Cambiar datos</a>
                     </div>
                   </li>
                 </ul>
@@ -136,7 +136,7 @@
             
             <li>
               <a href="{{ URL::asset('public/buscar') }}">
-                <i class="fa fa-th"></i> <span>Buscar</span>
+                <i class="fa fa-search"></i> <span>Buscar</span>
                  <small class="label pull-right bg-blue">
                    <span class="glyphicon glyphicon-search"></span>
                  </small>
@@ -145,7 +145,7 @@
 
              <li>
               <a href="{{ URL::asset('public/listaExpedientes') }}">
-                <i class="fa fa-th"></i> <span>Expedientes </span>
+                <i class="fa fa-folder-o"></i> <span>Expedientes </span>
                  <small class="label pull-right bg-green">
                    <span class="glyphicon glyphicon-plus"></span>
                  </small>
@@ -155,7 +155,7 @@
 
             <li>
               <a href="{{ URL::asset('/out') }}">
-                <i class="fa fa-th"></i> <span>cerrar sesión</span>
+                <i class="fa fa-times-circle"></i> <span>cerrar sesión</span>
                  <small class="label pull-right bg-red">
                     <span class="glyphicon glyphicon-off"></span>
                  </small>
